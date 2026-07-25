@@ -1,36 +1,40 @@
-import { sql } from "@vercel/postgres";
+import postgres from "postgres";
+
+function getClient() {
+  const url = process.env.POSTGRES_URL;
+  if (!url) throw new Error("POSTGRES_URL not set");
+  return postgres(url, { ssl: "require", max: 1 });
+}
 
 /* ── Schema ─────────────────────────────────────────────── */
 
 export async function createTables() {
+  const sql = getClient();
   await sql`
     CREATE TABLE IF NOT EXISTS oeuvres (
-      slug        TEXT PRIMARY KEY,
-      titre       TEXT NOT NULL,
-      titre_en    TEXT NOT NULL,
-      annee       INTEGER NOT NULL,
-      technique   TEXT NOT NULL DEFAULT '',
-      dimensions  TEXT NOT NULL DEFAULT '',
-      categorie   TEXT NOT NULL DEFAULT 'autre',
-      image       TEXT NOT NULL DEFAULT '',
-      prix        INTEGER,
-      disponible  BOOLEAN NOT NULL DEFAULT true,
-      featured    BOOLEAN NOT NULL DEFAULT false,
-      description TEXT NOT NULL DEFAULT '',
+      slug           TEXT PRIMARY KEY,
+      titre          TEXT NOT NULL,
+      titre_en       TEXT NOT NULL,
+      annee          INTEGER NOT NULL,
+      technique      TEXT NOT NULL DEFAULT '',
+      dimensions     TEXT NOT NULL DEFAULT '',
+      categorie      TEXT NOT NULL DEFAULT 'autre',
+      image          TEXT NOT NULL DEFAULT '',
+      prix           INTEGER,
+      disponible     BOOLEAN NOT NULL DEFAULT true,
+      featured       BOOLEAN NOT NULL DEFAULT false,
+      description    TEXT NOT NULL DEFAULT '',
       description_en TEXT NOT NULL DEFAULT '',
-      created_at  TIMESTAMPTZ DEFAULT NOW()
+      created_at     TIMESTAMPTZ DEFAULT NOW()
     )
   `;
-
   await sql`
     CREATE TABLE IF NOT EXISTS artiste (
       id   INTEGER PRIMARY KEY DEFAULT 1,
       data JSONB NOT NULL DEFAULT '{}'
     )
   `;
-
   await sql`INSERT INTO artiste (id, data) VALUES (1, '{}') ON CONFLICT DO NOTHING`;
-
   await sql`
     CREATE TABLE IF NOT EXISTS newsletter (
       email         TEXT PRIMARY KEY,
@@ -38,6 +42,7 @@ export async function createTables() {
       subscribed_at TIMESTAMPTZ DEFAULT NOW()
     )
   `;
+  await sql.end();
 }
 
 /* ── Oeuvres ─────────────────────────────────────────────── */
@@ -59,34 +64,41 @@ export type OeuvreRow = {
 };
 
 export async function dbGetAllOeuvres(): Promise<OeuvreRow[]> {
-  const { rows } = await sql<OeuvreRow>`
+  const sql = getClient();
+  const rows = await sql<OeuvreRow[]>`
     SELECT * FROM oeuvres ORDER BY annee DESC, created_at DESC
   `;
+  await sql.end();
   return rows;
 }
 
 export async function dbGetOeuvre(slug: string): Promise<OeuvreRow | null> {
-  const { rows } = await sql<OeuvreRow>`
-    SELECT * FROM oeuvres WHERE slug = ${slug}
-  `;
+  const sql = getClient();
+  const rows = await sql<OeuvreRow[]>`SELECT * FROM oeuvres WHERE slug = ${slug}`;
+  await sql.end();
   return rows[0] ?? null;
 }
 
 export async function dbGetFeatured(limit = 3): Promise<OeuvreRow[]> {
-  const { rows } = await sql<OeuvreRow>`
+  const sql = getClient();
+  const rows = await sql<OeuvreRow[]>`
     SELECT * FROM oeuvres WHERE featured = true ORDER BY annee DESC LIMIT ${limit}
   `;
+  await sql.end();
   return rows;
 }
 
 export async function dbGetAVendre(): Promise<OeuvreRow[]> {
-  const { rows } = await sql<OeuvreRow>`
+  const sql = getClient();
+  const rows = await sql<OeuvreRow[]>`
     SELECT * FROM oeuvres WHERE prix IS NOT NULL ORDER BY annee DESC
   `;
+  await sql.end();
   return rows;
 }
 
 export async function dbUpsertOeuvre(o: OeuvreRow): Promise<void> {
+  const sql = getClient();
   await sql`
     INSERT INTO oeuvres
       (slug, titre, titre_en, annee, technique, dimensions, categorie,
@@ -109,31 +121,40 @@ export async function dbUpsertOeuvre(o: OeuvreRow): Promise<void> {
       description    = EXCLUDED.description,
       description_en = EXCLUDED.description_en
   `;
+  await sql.end();
 }
 
 export async function dbDeleteOeuvre(slug: string): Promise<void> {
+  const sql = getClient();
   await sql`DELETE FROM oeuvres WHERE slug = ${slug}`;
+  await sql.end();
 }
 
 export async function dbSlugExists(slug: string): Promise<boolean> {
-  const { rows } = await sql`SELECT 1 FROM oeuvres WHERE slug = ${slug}`;
+  const sql = getClient();
+  const rows = await sql`SELECT 1 FROM oeuvres WHERE slug = ${slug}`;
+  await sql.end();
   return rows.length > 0;
 }
 
 /* ── Artiste / Bio ───────────────────────────────────────── */
 
 export async function dbGetBio(): Promise<Record<string, string>> {
-  const { rows } = await sql<{ data: Record<string, string> }>`
+  const sql = getClient();
+  const rows = await sql<{ data: Record<string, string> }[]>`
     SELECT data FROM artiste WHERE id = 1
   `;
+  await sql.end();
   return rows[0]?.data ?? {};
 }
 
 export async function dbSetBio(data: Record<string, string>): Promise<void> {
+  const sql = getClient();
   await sql`
     INSERT INTO artiste (id, data) VALUES (1, ${JSON.stringify(data)})
     ON CONFLICT (id) DO UPDATE SET data = EXCLUDED.data
   `;
+  await sql.end();
 }
 
 /* ── Newsletter ──────────────────────────────────────────── */
@@ -141,20 +162,27 @@ export async function dbSetBio(data: Record<string, string>): Promise<void> {
 export type Subscriber = { email: string; lang: string; subscribed_at: string };
 
 export async function dbGetSubscribers(): Promise<Subscriber[]> {
-  const { rows } = await sql<Subscriber>`
+  const sql = getClient();
+  const rows = await sql<Subscriber[]>`
     SELECT email, lang, subscribed_at FROM newsletter ORDER BY subscribed_at DESC
   `;
+  await sql.end();
   return rows;
 }
 
 export async function dbSubscriberExists(email: string): Promise<boolean> {
-  const { rows } = await sql`SELECT 1 FROM newsletter WHERE email = ${email.toLowerCase()}`;
+  const sql = getClient();
+  const rows = await sql`SELECT 1 FROM newsletter WHERE email = ${email.toLowerCase()}`;
+  await sql.end();
   return rows.length > 0;
 }
 
 export async function dbAddSubscriber(email: string, lang: string): Promise<void> {
+  const sql = getClient();
   await sql`
-    INSERT INTO newsletter (email, lang) VALUES (${email.toLowerCase()}, ${lang})
+    INSERT INTO newsletter (email, lang)
+    VALUES (${email.toLowerCase()}, ${lang})
     ON CONFLICT DO NOTHING
   `;
+  await sql.end();
 }

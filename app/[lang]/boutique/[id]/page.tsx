@@ -1,16 +1,8 @@
 import { getDictionary, hasLocale } from "@/lib/dictionaries";
-import { dbGetOeuvre, dbGetAVendre } from "@/lib/db";
+import { dbGetOeuvre } from "@/lib/db";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import BuyButton from "./BuyButton";
-
-export async function generateStaticParams() {
-  const oeuvres = await dbGetAVendre();
-  const langs = ["fr", "en"];
-  return langs.flatMap((lang) =>
-    oeuvres.map((o) => ({ lang, id: o.slug }))
-  );
-}
 
 export const dynamic = "force-dynamic";
 
