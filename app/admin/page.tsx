@@ -48,7 +48,7 @@ export default async function AdminDashboard() {
         <p className="text-[#6B6560] text-sm mt-1">Bienvenue dans l&apos;administration du site</p>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-10">
         {stats.map(({ label, value, color }) => (
           <div key={label} className="bg-[#2C2A27] p-6 border border-[#3D3A36]">
             <p className={`font-serif text-4xl font-light ${color}`}>{value}</p>
@@ -60,13 +60,13 @@ export default async function AdminDashboard() {
       <div className="mb-10">
         <h2 className="text-xs tracking-widest uppercase text-[#6B6560] mb-4">Actions rapides</h2>
         <div className="flex flex-wrap gap-3">
-          <Link href="/admin/oeuvres/new" className="bg-[#C8A96E] text-[#1A1917] text-sm tracking-widest uppercase px-6 py-3 hover:bg-[#A88748] transition-colors">
+          <Link href="/admin/oeuvres/new" className="bg-[#C8A96E] text-[#1A1917] text-xs sm:text-sm tracking-widest uppercase px-4 sm:px-6 py-3 hover:bg-[#A88748] transition-colors">
             + Ajouter une œuvre
           </Link>
-          <Link href="/admin/oeuvres" className="border border-[#3D3A36] text-[#D4C9B6] text-sm tracking-widest uppercase px-6 py-3 hover:border-[#C8A96E] hover:text-[#C8A96E] transition-colors">
+          <Link href="/admin/oeuvres" className="border border-[#3D3A36] text-[#D4C9B6] text-xs sm:text-sm tracking-widest uppercase px-4 sm:px-6 py-3 hover:border-[#C8A96E] hover:text-[#C8A96E] transition-colors">
             Gérer les œuvres
           </Link>
-          <Link href="/admin/artiste" className="border border-[#3D3A36] text-[#D4C9B6] text-sm tracking-widest uppercase px-6 py-3 hover:border-[#C8A96E] hover:text-[#C8A96E] transition-colors">
+          <Link href="/admin/artiste" className="border border-[#3D3A36] text-[#D4C9B6] text-xs sm:text-sm tracking-widest uppercase px-4 sm:px-6 py-3 hover:border-[#C8A96E] hover:text-[#C8A96E] transition-colors">
             Éditer la biographie
           </Link>
         </div>
@@ -74,8 +74,8 @@ export default async function AdminDashboard() {
 
       <div>
         <h2 className="text-xs tracking-widest uppercase text-[#6B6560] mb-4">Œuvres récentes</h2>
-        <div className="bg-[#2C2A27] border border-[#3D3A36] overflow-hidden">
-          <table className="w-full text-sm">
+        <div className="bg-[#2C2A27] border border-[#3D3A36] overflow-x-auto">
+          <table className="w-full text-sm min-w-[520px]">
             <thead>
               <tr className="border-b border-[#3D3A36]">
                 {["Titre", "Année", "Catégorie", "Prix", "Statut"].map((h) => (

@@ -171,7 +171,7 @@ export default function OeuvreForm({
       )}
 
       {/* Titres */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className={label}>Titre (FR) *</label>
           <input
@@ -193,7 +193,7 @@ export default function OeuvreForm({
       </div>
 
       {/* Technique / Dimensions / Année / Catégorie */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className={label}>Technique</label>
           <input className={input} value={form.technique} onChange={(e) => set("technique", e.target.value)} />
@@ -230,7 +230,7 @@ export default function OeuvreForm({
       </div>
 
       {/* Checkboxes */}
-      <div className="flex gap-8">
+      <div className="flex flex-wrap gap-6">
         {[
           { key: "disponible", label: "Disponible à la vente" },
           { key: "featured", label: "Affiché en vedette (accueil)" },
@@ -290,8 +290,8 @@ export default function OeuvreForm({
       </div>
 
       {/* Actions */}
-      <div className="flex items-center justify-between pt-4 border-t border-[#3D3A36]">
-        <div className="flex gap-3">
+      <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-[#3D3A36]">
+        <div className="flex flex-wrap gap-3">
           <button
             type="submit"
             disabled={saving}

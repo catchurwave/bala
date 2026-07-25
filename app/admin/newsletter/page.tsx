@@ -19,7 +19,7 @@ export default async function NewsletterAdminPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
         <div>
           <h1 className="font-serif text-3xl text-[#F7F2E8] font-light">Newsletter</h1>
           <p className="text-[#6B6560] text-sm mt-1">{subscribers.length} abonné{subscribers.length > 1 ? "s" : ""}</p>
@@ -35,7 +35,7 @@ export default async function NewsletterAdminPage() {
         )}
       </div>
 
-      <div className="grid grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-3 gap-3 mb-8">
         {[
           { label: "Total", value: subscribers.length, color: "text-[#C8A96E]" },
           { label: "FR", value: subscribers.filter((s) => s.lang === "fr").length, color: "text-[#7BA3B8]" },
@@ -53,8 +53,8 @@ export default async function NewsletterAdminPage() {
           <p className="font-serif text-xl italic text-[#6B6560]">Aucun abonné pour l&apos;instant</p>
         </div>
       ) : (
-        <div className="bg-[#2C2A27] border border-[#3D3A36] overflow-hidden">
-          <table className="w-full text-sm">
+        <div className="bg-[#2C2A27] border border-[#3D3A36] overflow-x-auto">
+          <table className="w-full text-sm min-w-[480px]">
             <thead>
               <tr className="border-b border-[#3D3A36]">
                 {["Email", "Langue", "Date d'inscription"].map((h) => (

@@ -22,7 +22,7 @@ export default async function OeuvresListPage() {
           <h1 className="font-serif text-3xl text-[#F7F2E8] font-light">Œuvres</h1>
           <p className="text-[#6B6560] text-sm mt-1">{oeuvres.length} tableau{oeuvres.length > 1 ? "x" : ""}</p>
         </div>
-        <Link href="/admin/oeuvres/new" className="bg-[#C8A96E] text-[#1A1917] text-sm tracking-widest uppercase px-6 py-3 hover:bg-[#A88748] transition-colors">
+        <Link href="/admin/oeuvres/new" className="bg-[#C8A96E] text-[#1A1917] text-xs sm:text-sm tracking-widest uppercase px-4 sm:px-6 py-3 hover:bg-[#A88748] transition-colors shrink-0">
           + Ajouter
         </Link>
       </div>
@@ -35,8 +35,8 @@ export default async function OeuvresListPage() {
           </Link>
         </div>
       ) : (
-        <div className="bg-[#2C2A27] border border-[#3D3A36] overflow-hidden">
-          <table className="w-full text-sm">
+        <div className="bg-[#2C2A27] border border-[#3D3A36] overflow-x-auto">
+          <table className="w-full text-sm min-w-[600px]">
             <thead>
               <tr className="border-b border-[#3D3A36]">
                 {["Titre", "Année", "Catégorie", "Prix", "Vedette", "Statut", ""].map((h) => (
