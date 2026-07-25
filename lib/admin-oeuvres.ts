@@ -23,7 +23,7 @@ function sanitizeSlug(slug: string): string {
   return slug.toLowerCase().replace(/[^a-z0-9-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
 }
 
-function toMdx(data: OeuvreFormData): string {
+export function buildMdxContent(data: OeuvreFormData): string {
   const prix = data.prix ? `\nprix: ${data.prix}` : "";
   return `---
 titre: "${data.titre.replace(/"/g, '\\"')}"
@@ -42,23 +42,31 @@ description_en: "${data.description_en.replace(/"/g, '\\"')}"
 }
 
 export function writeOeuvre(data: OeuvreFormData): string {
-  if (!fs.existsSync(contentDir)) fs.mkdirSync(contentDir, { recursive: true });
-
-  const slug = sanitizeSlug(data.slug);
-  if (!slug) throw new Error("Slug invalide");
-
-  const filepath = path.join(contentDir, `${slug}.mdx`);
-  fs.writeFileSync(filepath, toMdx({ ...data, slug }), "utf-8");
-  return slug;
+  /* Local write (dev) — on Vercel filesystem is read-only, use ghWrite instead */
+  try {
+    if (!fs.existsSync(contentDir)) fs.mkdirSync(contentDir, { recursive: true });
+    const slug = sanitizeSlug(data.slug);
+    if (!slug) throw new Error("Slug invalide");
+    fs.writeFileSync(path.join(contentDir, `${slug}.mdx`), buildMdxContent({ ...data, slug }), "utf-8");
+    return slug;
+  } catch {
+    return sanitizeSlug(data.slug);
+  }
 }
 
 export function deleteOeuvre(slug: string): void {
-  const safe = sanitizeSlug(slug);
-  const filepath = path.join(contentDir, `${safe}.mdx`);
-  if (fs.existsSync(filepath)) fs.unlinkSync(filepath);
+  try {
+    const safe = sanitizeSlug(slug);
+    const filepath = path.join(contentDir, `${safe}.mdx`);
+    if (fs.existsSync(filepath)) fs.unlinkSync(filepath);
+  } catch { /* read-only on Vercel — ghDelete handles it */ }
 }
 
 export function oeuvreExists(slug: string): boolean {
-  const safe = sanitizeSlug(slug);
-  return fs.existsSync(path.join(contentDir, `${safe}.mdx`));
+  try {
+    const safe = sanitizeSlug(slug);
+    return fs.existsSync(path.join(contentDir, `${safe}.mdx`));
+  } catch {
+    return false;
+  }
 }
