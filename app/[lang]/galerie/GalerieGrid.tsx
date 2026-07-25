@@ -1,0 +1,87 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import type { OeuvreRow } from "@/lib/db";
+
+const CATEGORIES_FR = { all: "Toutes", paysage: "Paysages", nature: "Nature morte", portrait: "Portraits", marine: "Marines" };
+const CATEGORIES_EN = { all: "All", paysage: "Landscapes", nature: "Still Life", portrait: "Portraits", marine: "Seascapes" };
+
+export default function GalerieGrid({ oeuvres, lang }: { oeuvres: OeuvreRow[]; lang: string }) {
+  const [filter, setFilter] = useState("all");
+
+  const categories = lang === "fr" ? CATEGORIES_FR : CATEGORIES_EN;
+  const filtered = filter === "all" ? oeuvres : oeuvres.filter((o) => o.categorie === filter);
+
+  return (
+    <>
+      {/* Filters */}
+      <div className="flex flex-wrap justify-center gap-3 mb-16">
+        {Object.entries(categories).map(([key, label]) => (
+          <button
+            key={key}
+            onClick={() => setFilter(key)}
+            className={`text-xs tracking-widest uppercase px-5 py-2 border transition-all ${
+              filter === key
+                ? "bg-[#2C2A27] text-[#F7F2E8] border-[#2C2A27]"
+                : "border-[#D4C9B6] text-[#6B6560] hover:border-[#C8A96E] hover:text-[#C8A96E]"
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {/* Grid */}
+      {filtered.length === 0 ? (
+        <div className="text-center py-24 text-[#A09888]">
+          <p className="font-serif text-2xl italic">
+            {lang === "fr" ? "Aucune œuvre dans cette catégorie" : "No works in this category"}
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+          {filtered.map((o) => {
+            const titre = lang === "fr" ? o.titre : o.titre_en;
+            const description = lang === "fr" ? o.description : o.description_en;
+
+            return (
+              <Link key={o.slug} href={`/${lang}/galerie/${o.slug}`} className="group painting-card block">
+                <div className="frame">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-[#EDE5D4]">
+                    {o.image ? (
+                      <Image
+                        src={o.image}
+                        alt={titre}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#EDE5D4] to-[#D4C9B6]">
+                        <svg className="w-16 h-16 text-[#C8A96E] opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={0.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-[#2C2A27]/0 group-hover:bg-[#2C2A27]/30 transition-all duration-300 flex items-end">
+                      <div className="translate-y-full group-hover:translate-y-0 transition-transform duration-300 w-full bg-gradient-to-t from-[#2C2A27]/90 to-transparent p-4">
+                        <p className="text-[#F7F2E8] text-xs leading-relaxed line-clamp-2">{description}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-4 px-1">
+                  <h3 className="font-serif text-xl text-[#2C2A27] group-hover:text-[#C8A96E] transition-colors">{titre}</h3>
+                  <p className="text-sm text-[#6B6560] mt-1">{o.technique} · {o.annee}</p>
+                  <p className="text-xs text-[#A09888] mt-0.5">{o.dimensions}</p>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      )}
+    </>
+  );
+}

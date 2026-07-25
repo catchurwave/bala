@@ -1,13 +1,26 @@
 import Link from "next/link";
 import Image from "next/image";
-import type { Oeuvre } from "@/lib/oeuvres";
+
+type OeuvreData = {
+  slug: string;
+  titre: string;
+  titre_en: string;
+  annee: number;
+  technique: string;
+  dimensions: string;
+  image: string;
+  prix?: number | null;
+  disponible: boolean;
+  description: string;
+  description_en: string;
+};
 
 export default function OeuvreCard({
   oeuvre,
   lang,
   showPrice = false,
 }: {
-  oeuvre: Oeuvre;
+  oeuvre: OeuvreData;
   lang: string;
   showPrice?: boolean;
 }) {
