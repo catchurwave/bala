@@ -4,12 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import type { OeuvreRow } from "@/lib/db";
+import { useModal } from "@/components/ModalContext";
 
 const CATEGORIES_FR = { all: "Toutes", paysage: "Paysages", nature: "Nature morte", portrait: "Portraits", marine: "Marines" };
 const CATEGORIES_EN = { all: "All", paysage: "Landscapes", nature: "Still Life", portrait: "Portraits", marine: "Seascapes" };
 
 export default function GalerieGrid({ oeuvres, lang }: { oeuvres: OeuvreRow[]; lang: string }) {
   const [filter, setFilter] = useState("all");
+  const { open } = useModal();
 
   const categories = lang === "fr" ? CATEGORIES_FR : CATEGORIES_EN;
   const filtered = filter === "all" ? oeuvres : oeuvres.filter((o) => o.categorie === filter);
@@ -47,7 +49,7 @@ export default function GalerieGrid({ oeuvres, lang }: { oeuvres: OeuvreRow[]; l
             const description = lang === "fr" ? o.description : o.description_en;
 
             return (
-              <Link key={o.slug} href={`/${lang}/galerie/${o.slug}`} className="group painting-card block">
+              <div key={o.slug} className="group painting-card">
                 <div className="frame">
                   <div className="relative aspect-[4/3] overflow-hidden bg-[#EDE5D4]">
                     {o.image ? (
@@ -65,19 +67,29 @@ export default function GalerieGrid({ oeuvres, lang }: { oeuvres: OeuvreRow[]; l
                         </svg>
                       </div>
                     )}
-                    <div className="absolute inset-0 bg-[#2C2A27]/0 group-hover:bg-[#2C2A27]/30 transition-all duration-300 flex items-end">
-                      <div className="translate-y-full group-hover:translate-y-0 transition-transform duration-300 w-full bg-gradient-to-t from-[#2C2A27]/90 to-transparent p-4">
-                        <p className="text-[#F7F2E8] text-xs leading-relaxed line-clamp-2">{description}</p>
-                      </div>
+                    {/* Hover overlay with quick-view */}
+                    <div className="absolute inset-0 bg-[#2C2A27]/0 group-hover:bg-[#2C2A27]/40 transition-all duration-300 flex flex-col items-center justify-center gap-2">
+                      <button
+                        onClick={() => open(o)}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-[#F7F2E8] text-[#2C2A27] text-[10px] tracking-widest uppercase px-4 py-2 hover:bg-[#C8A96E] hover:text-white transition-colors"
+                      >
+                        {lang === "fr" ? "Aperçu rapide" : "Quick view"}
+                      </button>
+                      <Link
+                        href={`/${lang}/galerie/${o.slug}`}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-[#F7F2E8] text-[10px] tracking-widest uppercase border border-white/50 px-4 py-2 hover:border-[#C8A96E] hover:text-[#C8A96E] transition-colors"
+                      >
+                        {lang === "fr" ? "Voir détail" : "View detail"}
+                      </Link>
                     </div>
                   </div>
                 </div>
-                <div className="mt-4 px-1">
+                <Link href={`/${lang}/galerie/${o.slug}`} className="mt-4 px-1 block">
                   <h3 className="font-serif text-xl text-[#2C2A27] group-hover:text-[#C8A96E] transition-colors">{titre}</h3>
                   <p className="text-sm text-[#6B6560] mt-1">{o.technique} · {o.annee}</p>
                   <p className="text-xs text-[#A09888] mt-0.5">{o.dimensions}</p>
-                </div>
-              </Link>
+                </Link>
+              </div>
             );
           })}
         </div>

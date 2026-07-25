@@ -1,19 +1,33 @@
 "use client";
 
 import { createContext, useContext, useState, useCallback } from "react";
-import type { Oeuvre } from "@/lib/oeuvres";
+
+export type OeuvrePreview = {
+  slug: string;
+  titre: string;
+  titre_en: string;
+  annee: number;
+  technique: string;
+  dimensions: string;
+  categorie: string;
+  image: string;
+  prix?: number | null;
+  disponible: boolean;
+  description: string;
+  description_en: string;
+};
 
 type ModalCtx = {
-  oeuvre: Oeuvre | null;
-  open: (o: Oeuvre) => void;
+  oeuvre: OeuvrePreview | null;
+  open: (o: OeuvrePreview) => void;
   close: () => void;
 };
 
 const Ctx = createContext<ModalCtx>({ oeuvre: null, open: () => {}, close: () => {} });
 
 export function ModalProvider({ children }: { children: React.ReactNode }) {
-  const [oeuvre, setOeuvre] = useState<Oeuvre | null>(null);
-  const open = useCallback((o: Oeuvre) => setOeuvre(o), []);
+  const [oeuvre, setOeuvre] = useState<OeuvrePreview | null>(null);
+  const open = useCallback((o: OeuvrePreview) => setOeuvre(o), []);
   const close = useCallback(() => setOeuvre(null), []);
   return <Ctx.Provider value={{ oeuvre, open, close }}>{children}</Ctx.Provider>;
 }

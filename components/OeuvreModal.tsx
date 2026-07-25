@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useModal } from "./ModalContext";
 import Image from "next/image";
 import Link from "next/link";
+import SizeVisualizer from "./SizeVisualizer";
 
 export default function OeuvreModal({ lang }: { lang: string }) {
   const { oeuvre, close } = useModal();
@@ -74,17 +75,22 @@ export default function OeuvreModal({ lang }: { lang: string }) {
               <h2 className="font-serif text-2xl text-[#2C2A27] font-light mb-3">{titre}</h2>
               <p className="text-sm text-[#6B6560] leading-relaxed mb-6">{description}</p>
 
-              <div className="space-y-2 mb-6 border-t border-[#EDE5D4] pt-4">
+              <div className="space-y-2 mb-4 border-t border-[#EDE5D4] pt-4">
                 {[
                   [lang === "fr" ? "Technique" : "Technique", oeuvre.technique],
                   [lang === "fr" ? "Dimensions" : "Dimensions", oeuvre.dimensions],
-                ].map(([k, v]) => (
+                ].map(([k, v]) => v ? (
                   <div key={k} className="flex justify-between text-sm">
                     <span className="text-[#A09888] text-xs uppercase tracking-wider">{k}</span>
                     <span className="text-[#2C2A27]">{v}</span>
                   </div>
-                ))}
+                ) : null)}
               </div>
+              {oeuvre.dimensions && (
+                <div className="mb-4">
+                  <SizeVisualizer dimensions={oeuvre.dimensions} lang={lang} />
+                </div>
+              )}
 
               {oeuvre.prix && (
                 <div className="flex items-center justify-between mb-6">
