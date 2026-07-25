@@ -1,20 +1,30 @@
 import { NextResponse } from "next/server";
-import { getAdminSession } from "@/lib/auth";
 import { createTables, dbUpsertOeuvre } from "@/lib/db";
 import { getAllOeuvres } from "@/lib/oeuvres";
 
-export async function POST() {
-  if (!(await getAdminSession())) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
+async function run() {
   await createTables();
-
-  /* Seed from existing MDX files */
   const oeuvres = getAllOeuvres();
   for (const o of oeuvres) {
     await dbUpsertOeuvre(o);
   }
+  return oeuvres.length;
+}
 
-  return NextResponse.json({ ok: true, seeded: oeuvres.length });
+export async function GET() {
+  try {
+    const seeded = await run();
+    return NextResponse.json({ ok: true, message: `Tables créées. ${seeded} tableau(x) importé(s).` });
+  } catch (err) {
+    return NextResponse.json({ error: String(err) }, { status: 500 });
+  }
+}
+
+export async function POST() {
+  try {
+    const seeded = await run();
+    return NextResponse.json({ ok: true, seeded });
+  } catch (err) {
+    return NextResponse.json({ error: String(err) }, { status: 500 });
+  }
 }

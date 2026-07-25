@@ -4,7 +4,32 @@ import Link from "next/link";
 export const dynamic = "force-dynamic";
 
 export default async function AdminDashboard() {
-  const all = await dbGetAllOeuvres();
+  let all: Awaited<ReturnType<typeof dbGetAllOeuvres>> = [];
+  let dbError = "";
+
+  try {
+    all = await dbGetAllOeuvres();
+  } catch (e) {
+    dbError = String(e);
+  }
+
+  if (dbError) {
+    return (
+      <div className="max-w-xl">
+        <h1 className="font-serif text-3xl text-[#F7F2E8] font-light mb-6">Tableau de bord</h1>
+        <div className="bg-red-900/20 border border-red-800 p-6 text-sm text-red-300 space-y-4">
+          <p className="font-medium">⚠ Base de données non configurée</p>
+          <p>Ajoute <code className="bg-red-900/40 px-1">POSTGRES_URL</code> dans <strong>Vercel → Settings → Environment Variables</strong>, puis redéploie.</p>
+          <p className="text-red-400 text-xs break-all">{dbError}</p>
+        </div>
+        <div className="mt-6 bg-[#2C2A27] border border-[#3D3A36] p-4 text-xs text-[#6B6560]">
+          Après avoir ajouté les variables et redéployé, va sur{" "}
+          <a href="/api/admin/setup" className="text-[#C8A96E] underline" target="_blank">/api/admin/setup</a>{" "}
+          pour initialiser les tables.
+        </div>
+      </div>
+    );
+  }
   const vente = all.filter((o) => o.prix != null);
   const vendues = vente.filter((o) => !o.disponible);
   const featured = all.filter((o) => o.featured);
