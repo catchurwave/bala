@@ -3,7 +3,16 @@ import { dbGetSubscribers } from "@/lib/db";
 export const dynamic = "force-dynamic";
 
 export default async function NewsletterAdminPage() {
-  const subscribers = await dbGetSubscribers();
+  let subscribers: Awaited<ReturnType<typeof dbGetSubscribers>> = [];
+  try {
+    subscribers = await dbGetSubscribers();
+  } catch {
+    return (
+      <div className="bg-red-900/20 border border-red-800 p-6 text-sm text-red-300">
+        <p className="font-medium">⚠ DB non configurée — lance <code>/api/admin/setup</code> d&apos;abord.</p>
+      </div>
+    );
+  }
 
   const csvData = `email,langue,date\n${subscribers.map((s) => `${s.email},${s.lang},${s.subscribed_at}`).join("\n")}`;
   const csvB64 = Buffer.from(csvData).toString("base64");

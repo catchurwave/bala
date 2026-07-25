@@ -4,7 +4,16 @@ import Link from "next/link";
 export const dynamic = "force-dynamic";
 
 export default async function OeuvresListPage() {
-  const oeuvres = await dbGetAllOeuvres();
+  let oeuvres: Awaited<ReturnType<typeof dbGetAllOeuvres>> = [];
+  try {
+    oeuvres = await dbGetAllOeuvres();
+  } catch {
+    return (
+      <div className="bg-red-900/20 border border-red-800 p-6 text-sm text-red-300">
+        <p className="font-medium">⚠ DB non configurée — lance <code>/api/admin/setup</code> d&apos;abord.</p>
+      </div>
+    );
+  }
 
   return (
     <div>
