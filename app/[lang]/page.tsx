@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { getDictionary, hasLocale } from "@/lib/dictionaries";
 import { notFound } from "next/navigation";
-import { dbGetFeatured } from "@/lib/db";
+import { dbGetFeatured, dbGetBio } from "@/lib/db";
 import OeuvreCard from "@/components/OeuvreCard";
 import Reassurance from "@/components/Reassurance";
 import Newsletter from "@/components/Newsletter";
+
+export const dynamic = "force-dynamic";
 
 export default async function HomePage({
   params,
@@ -15,7 +17,10 @@ export default async function HomePage({
   if (!hasLocale(lang)) notFound();
 
   const dict = await getDictionary(lang);
-  const featured = await dbGetFeatured(3);
+  const [featured, bio] = await Promise.all([dbGetFeatured(3), dbGetBio().catch((): Record<string, string> => ({}))]);
+  const artistPrenom = bio.nom || "Jean";
+  const artistNom = bio.nom_complet?.split(" ").slice(1).join(" ") || "Balabanian";
+  const quote = lang === "fr" ? (bio.citation || dict.home.quote) : (bio.citation_en || dict.home.quote);
 
   return (
     <>
@@ -47,15 +52,13 @@ export default async function HomePage({
             {dict.home.hero_subtitle}
           </p>
 
-          {/* Name — to be replaced with actual artist name */}
           <h1 className="font-serif text-6xl md:text-8xl lg:text-9xl text-[#2C2A27] leading-none mb-8 font-light">
-            <span className="italic">Jean</span>{" "}
-            <span className="font-normal">Dupont</span>
+            <span className="italic">{artistPrenom}</span>{" "}
+            <span className="font-normal">{artistNom}</span>
           </h1>
 
-          {/* Quote */}
           <blockquote className="font-serif text-xl md:text-2xl italic text-[#6B6560] mb-12 max-w-xl mx-auto leading-relaxed">
-            &ldquo;{dict.home.quote}&rdquo;
+            &ldquo;{quote}&rdquo;
           </blockquote>
 
           {/* CTAs */}
