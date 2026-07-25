@@ -27,10 +27,20 @@ export async function POST(req: NextRequest) {
     .toLowerCase()
     .replace(/[^a-z0-9.\-]/g, "-");
 
-  const blob = await put(`oeuvres/${safeName}`, file, {
-    access: "public",
-    addRandomSuffix: false,
-  });
+  if (!process.env.BLOB_READ_WRITE_TOKEN) {
+    return NextResponse.json(
+      { error: "BLOB_READ_WRITE_TOKEN non configuré — ajoute-le dans Vercel → Settings → Environment Variables" },
+      { status: 500 }
+    );
+  }
 
-  return NextResponse.json({ url: blob.url });
+  try {
+    const blob = await put(`oeuvres/${safeName}`, file, {
+      access: "public",
+      addRandomSuffix: false,
+    });
+    return NextResponse.json({ url: blob.url });
+  } catch (err) {
+    return NextResponse.json({ error: String(err) }, { status: 500 });
+  }
 }

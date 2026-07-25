@@ -79,13 +79,20 @@ export default function OeuvreForm({
     const file = e.target.files?.[0];
     if (!file) return;
     setUploading(true);
-    const fd = new FormData();
-    fd.append("file", file);
-    const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
-    const json = await res.json();
-    if (res.ok) set("image", json.url);
-    else setError(json.error ?? "Upload échoué");
-    setUploading(false);
+    setError("");
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
+      const json = await res.json().catch(() => ({}));
+      if (res.ok) set("image", json.url);
+      else setError(json.error ?? `Upload échoué (${res.status})`);
+    } catch {
+      setError("Erreur réseau lors de l'upload");
+    } finally {
+      setUploading(false);
+      if (fileRef.current) fileRef.current.value = "";
+    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
