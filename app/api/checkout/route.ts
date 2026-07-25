@@ -20,15 +20,18 @@ export async function POST(req: NextRequest) {
         price_data: {
           currency: "eur",
           unit_amount: prix * 100,
-          product_data: {
-            name: titre,
-            metadata: { slug },
-          },
+          product_data: { name: titre, metadata: { slug } },
         },
         quantity: 1,
       },
     ],
     mode: "payment",
+    customer_creation: "always",
+    phone_number_collection: { enabled: true },
+    shipping_address_collection: {
+      allowed_countries: ["FR", "BE", "CH", "LU", "MC", "GB", "DE", "ES", "IT", "NL", "PT", "US", "CA", "AU"],
+    },
+    billing_address_collection: "required",
     success_url: `${baseUrl}/${lang}/boutique/${slug}?success=1`,
     cancel_url: `${baseUrl}/${lang}/boutique/${slug}?cancel=1`,
     metadata: { slug, lang },
