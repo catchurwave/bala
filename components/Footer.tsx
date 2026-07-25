@@ -1,0 +1,80 @@
+import Link from "next/link";
+
+type Dict = {
+  footer: { rights: string; made_with: string };
+  nav: {
+    home: string;
+    gallery: string;
+    shop: string;
+    artist: string;
+    contact: string;
+  };
+};
+
+export default function Footer({ lang, dict }: { lang: string; dict: Dict }) {
+  const year = new Date().getFullYear();
+
+  return (
+    <footer className="bg-[#2C2A27] text-[#D4C9B6] mt-auto">
+      <div className="max-w-7xl mx-auto px-6 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          {/* Brand */}
+          <div>
+            <p className="font-serif text-3xl italic text-[#C8A96E] font-light mb-4">
+              Atelier
+            </p>
+            <p className="text-sm leading-relaxed text-[#A09888] max-w-xs">
+              {lang === "fr"
+                ? "Peintre impressionniste inspiré par la lumière, la nature et la tradition de Sisley."
+                : "Impressionist painter inspired by light, nature, and the tradition of Sisley."}
+            </p>
+          </div>
+
+          {/* Links */}
+          <div>
+            <p className="text-xs tracking-widest uppercase text-[#C8A96E] mb-6">
+              {lang === "fr" ? "Navigation" : "Navigation"}
+            </p>
+            <nav className="flex flex-col gap-3">
+              {[
+                { href: `/${lang}`, label: dict.nav.home },
+                { href: `/${lang}/galerie`, label: dict.nav.gallery },
+                { href: `/${lang}/boutique`, label: dict.nav.shop },
+                { href: `/${lang}/artiste`, label: dict.nav.artist },
+                { href: `/${lang}/contact`, label: dict.nav.contact },
+              ].map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  className="text-sm text-[#A09888] hover:text-[#C8A96E] transition-colors"
+                >
+                  {l.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <p className="text-xs tracking-widest uppercase text-[#C8A96E] mb-6">
+              Contact
+            </p>
+            <Link
+              href={`/${lang}/contact`}
+              className="inline-block text-sm border border-[#C8A96E] text-[#C8A96E] px-5 py-2.5 hover:bg-[#C8A96E] hover:text-[#2C2A27] transition-all"
+            >
+              {lang === "fr" ? "Contacter l'artiste" : "Contact the artist"}
+            </Link>
+          </div>
+        </div>
+
+        <div className="mt-16 pt-8 border-t border-[#4A4843] flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[#6B6560]">
+          <p>
+            © {year} — {dict.footer.rights}
+          </p>
+          <p className="italic">{dict.footer.made_with}</p>
+        </div>
+      </div>
+    </footer>
+  );
+}

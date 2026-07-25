@@ -1,0 +1,60 @@
+{
+  "nav": {
+    "home": "Home",
+    "gallery": "Gallery",
+    "shop": "Shop",
+    "artist": "The Artist",
+    "contact": "Contact"
+  },
+  "home": {
+    "hero_subtitle": "Impressionist Painter",
+    "hero_cta_gallery": "Discover the works",
+    "hero_cta_shop": "Buy a painting",
+    "featured_title": "Recent Works",
+    "featured_subtitle": "Explore the latest creations",
+    "view_all": "View full gallery",
+    "quote": "Light is the breath of painting"
+  },
+  "gallery": {
+    "title": "Gallery",
+    "subtitle": "All works",
+    "filter_all": "All",
+    "filter_paysage": "Landscapes",
+    "filter_nature": "Still Life",
+    "filter_portrait": "Portraits",
+    "filter_marine": "Seascapes"
+  },
+  "shop": {
+    "title": "Shop",
+    "subtitle": "Acquire an original work",
+    "available": "Available",
+    "sold": "Sold",
+    "buy": "Buy",
+    "inquire": "Inquire",
+    "price": "Price",
+    "dimensions": "Dimensions",
+    "technique": "Technique",
+    "year": "Year",
+    "checkout": "Proceed to checkout",
+    "secure_payment": "Secure payment by Stripe"
+  },
+  "artist": {
+    "title": "The Artist",
+    "subtitle": "Biography"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Get in touch",
+    "name": "Your name",
+    "email": "Your email",
+    "subject": "Subject",
+    "message": "Message",
+    "send": "Send",
+    "success": "Message sent successfully!",
+    "error": "An error occurred. Please try again."
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "made_with": "Made with passion"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "gallery": "Galerie",
+    "shop": "Boutique",
+    "artist": "L'Artiste",
+    "contact": "Contact"
+  },
+  "home": {
+    "hero_subtitle": "Peintre Impressionniste",
+    "hero_cta_gallery": "Découvrir les œuvres",
+    "hero_cta_shop": "Acheter une œuvre",
+    "featured_title": "Œuvres récentes",
+    "featured_subtitle": "Explorez les dernières créations",
+    "view_all": "Voir toute la galerie",
+    "quote": "La lumière est le souffle de la peinture"
+  },
+  "gallery": {
+    "title": "Galerie",
+    "subtitle": "Toutes les œuvres",
+    "filter_all": "Toutes",
+    "filter_paysage": "Paysages",
+    "filter_nature": "Nature morte",
+    "filter_portrait": "Portraits",
+    "filter_marine": "Marines"
+  },
+  "shop": {
+    "title": "Boutique",
+    "subtitle": "Acquérir une œuvre originale",
+    "available": "Disponible",
+    "sold": "Vendue",
+    "buy": "Acheter",
+    "inquire": "Renseignements",
+    "price": "Prix",
+    "dimensions": "Dimensions",
+    "technique": "Technique",
+    "year": "Année",
+    "checkout": "Procéder au paiement",
+    "secure_payment": "Paiement sécurisé par Stripe"
+  },
+  "artist": {
+    "title": "L'Artiste",
+    "subtitle": "Biographie"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Prendre contact",
+    "name": "Votre nom",
+    "email": "Votre email",
+    "subject": "Sujet",
+    "message": "Message",
+    "send": "Envoyer",
+    "success": "Message envoyé avec succès !",
+    "error": "Une erreur s'est produite. Veuillez réessayer."
+  },
+  "footer": {
+    "rights": "Tous droits réservés",
+    "made_with": "Fait avec passion"
+  }
+}
