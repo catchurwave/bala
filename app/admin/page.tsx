@@ -1,5 +1,6 @@
 import { dbGetAllOeuvres } from "@/lib/db";
 import Link from "next/link";
+import OeuvresTable from "./oeuvres/OeuvresTable";
 
 export const dynamic = "force-dynamic";
 
@@ -74,36 +75,7 @@ export default async function AdminDashboard() {
 
       <div>
         <h2 className="text-xs tracking-widest uppercase text-[#6B6560] mb-4">Œuvres récentes</h2>
-        <div className="bg-[#2C2A27] border border-[#3D3A36] overflow-x-auto">
-          <table className="w-full text-sm min-w-[520px]">
-            <thead>
-              <tr className="border-b border-[#3D3A36]">
-                {["Titre", "Année", "Catégorie", "Prix", "Statut"].map((h) => (
-                  <th key={h} className="text-left px-4 py-3 text-xs tracking-widest uppercase text-[#6B6560]">{h}</th>
-                ))}
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {all.slice(0, 8).map((o) => (
-                <tr key={o.slug} className="border-b border-[#3D3A36]/50 hover:bg-[#3D3A36]/30 transition-colors">
-                  <td className="px-4 py-3 text-[#D4C9B6] font-medium">{o.titre}</td>
-                  <td className="px-4 py-3 text-[#6B6560]">{o.annee}</td>
-                  <td className="px-4 py-3 text-[#6B6560]">{o.categorie}</td>
-                  <td className="px-4 py-3 text-[#C8A96E]">{o.prix ? `${o.prix} €` : "—"}</td>
-                  <td className="px-4 py-3">
-                    <span className={`text-xs px-2 py-0.5 ${o.disponible ? "text-[#4A6741] bg-[#4A6741]/10" : "text-[#6B6560] bg-[#6B6560]/10"}`}>
-                      {o.disponible ? "Disponible" : "Vendue"}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3 text-right">
-                    <Link href={`/admin/oeuvres/${o.slug}`} className="text-xs text-[#C8A96E] hover:underline">Éditer</Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <OeuvresTable oeuvres={all.slice(0, 8)} />
       </div>
     </div>
   );
