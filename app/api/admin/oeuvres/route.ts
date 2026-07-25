@@ -1,15 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAdminSession } from "@/lib/auth";
-import { writeOeuvre, oeuvreExists } from "@/lib/admin-oeuvres";
-import { getAllOeuvres } from "@/lib/oeuvres";
-import { ghWrite } from "@/lib/github-fs";
-import { buildMdxContent } from "@/lib/admin-oeuvres";
+import { dbGetAllOeuvres, dbUpsertOeuvre, dbSlugExists } from "@/lib/db";
 
 export async function GET() {
   if (!(await getAdminSession())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  return NextResponse.json(getAllOeuvres());
+  const oeuvres = await dbGetAllOeuvres();
+  return NextResponse.json(oeuvres);
 }
 
 export async function POST(req: NextRequest) {
@@ -18,14 +16,14 @@ export async function POST(req: NextRequest) {
   }
 
   const data = await req.json();
+  const slug = data.slug?.toLowerCase().replace(/[^a-z0-9-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
 
-  if (oeuvreExists(data.slug)) {
+  if (!slug) return NextResponse.json({ error: "Slug invalide" }, { status: 400 });
+
+  if (await dbSlugExists(slug)) {
     return NextResponse.json({ error: "Un tableau avec ce slug existe déjà" }, { status: 409 });
   }
 
-  const slug = writeOeuvre(data);
-  const mdx = buildMdxContent({ ...data, slug });
-  await ghWrite(`content/oeuvres/${slug}.mdx`, mdx, `admin: add painting "${data.titre}"`);
-
+  await dbUpsertOeuvre({ ...data, slug, prix: data.prix ?? null });
   return NextResponse.json({ ok: true, slug }, { status: 201 });
 }

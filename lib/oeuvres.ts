@@ -11,7 +11,7 @@ export type Oeuvre = {
   dimensions: string;
   categorie: "paysage" | "nature" | "portrait" | "marine" | "autre";
   image: string;
-  prix?: number;
+  prix?: number | null;
   disponible: boolean;
   featured: boolean;
   description: string;

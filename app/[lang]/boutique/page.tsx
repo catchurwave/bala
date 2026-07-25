@@ -1,5 +1,5 @@
 import { getDictionary, hasLocale } from "@/lib/dictionaries";
-import { getOeuvresAVendre } from "@/lib/oeuvres";
+import { dbGetAVendre } from "@/lib/db";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -14,7 +14,7 @@ export default async function BoutiquePage({
   if (!hasLocale(lang)) notFound();
 
   const dict = await getDictionary(lang);
-  const oeuvres = getOeuvresAVendre();
+  const oeuvres = await dbGetAVendre();
 
   return (
     <>

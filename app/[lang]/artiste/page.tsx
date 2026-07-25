@@ -1,18 +1,7 @@
 import { getDictionary, hasLocale } from "@/lib/dictionaries";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import fs from "fs";
-import path from "path";
-
-function readBio() {
-  const file = path.join(process.cwd(), "content/artiste.json");
-  if (!fs.existsSync(file)) return null;
-  try {
-    return JSON.parse(fs.readFileSync(file, "utf-8"));
-  } catch {
-    return null;
-  }
-}
+import { dbGetBio } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
@@ -25,7 +14,7 @@ export default async function ArtistePage({
   if (!hasLocale(lang)) notFound();
 
   const dict = await getDictionary(lang);
-  const savedBio = readBio();
+  const savedBio = await dbGetBio();
 
   const bio = {
     fr: {

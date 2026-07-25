@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAdminSession } from "@/lib/auth";
-import { writeOeuvre, deleteOeuvre, buildMdxContent } from "@/lib/admin-oeuvres";
-import { getOeuvre } from "@/lib/oeuvres";
-import { ghWrite, ghDelete } from "@/lib/github-fs";
+import { dbGetOeuvre, dbUpsertOeuvre, dbDeleteOeuvre } from "@/lib/db";
 
 export async function GET(
   _req: NextRequest,
@@ -12,7 +10,7 @@ export async function GET(
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   const { slug } = await params;
-  const oeuvre = getOeuvre(slug);
+  const oeuvre = await dbGetOeuvre(slug);
   if (!oeuvre) return NextResponse.json({ error: "Not found" }, { status: 404 });
   return NextResponse.json(oeuvre);
 }
@@ -26,9 +24,7 @@ export async function PUT(
   }
   const { slug } = await params;
   const data = await req.json();
-  writeOeuvre({ ...data, slug });
-  const mdx = buildMdxContent({ ...data, slug });
-  await ghWrite(`content/oeuvres/${slug}.mdx`, mdx, `admin: update painting "${data.titre}"`);
+  await dbUpsertOeuvre({ ...data, slug, prix: data.prix ?? null });
   return NextResponse.json({ ok: true });
 }
 
@@ -40,7 +36,6 @@ export async function DELETE(
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   const { slug } = await params;
-  deleteOeuvre(slug);
-  await ghDelete(`content/oeuvres/${slug}.mdx`, `admin: delete painting ${slug}`);
+  await dbDeleteOeuvre(slug);
   return NextResponse.json({ ok: true });
 }

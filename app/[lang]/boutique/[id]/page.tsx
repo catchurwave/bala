@@ -1,16 +1,18 @@
 import { getDictionary, hasLocale } from "@/lib/dictionaries";
-import { getOeuvre, getAllOeuvres } from "@/lib/oeuvres";
+import { dbGetOeuvre, dbGetAVendre } from "@/lib/db";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import BuyButton from "./BuyButton";
 
 export async function generateStaticParams() {
-  const oeuvres = getAllOeuvres().filter((o) => o.prix != null);
+  const oeuvres = await dbGetAVendre();
   const langs = ["fr", "en"];
   return langs.flatMap((lang) =>
     oeuvres.map((o) => ({ lang, id: o.slug }))
   );
 }
+
+export const dynamic = "force-dynamic";
 
 export default async function OeuvrePage({
   params,
@@ -20,7 +22,7 @@ export default async function OeuvrePage({
   const { lang, id } = await params;
   if (!hasLocale(lang)) notFound();
 
-  const oeuvre = getOeuvre(id);
+  const oeuvre = await dbGetOeuvre(id);
   if (!oeuvre || oeuvre.prix == null) notFound();
 
   const dict = await getDictionary(lang);

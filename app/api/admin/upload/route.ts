@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAdminSession } from "@/lib/auth";
-import { ghWriteBinary } from "@/lib/github-fs";
+import { put } from "@vercel/blob";
 import path from "path";
 
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
@@ -27,14 +27,10 @@ export async function POST(req: NextRequest) {
     .toLowerCase()
     .replace(/[^a-z0-9.\-]/g, "-");
 
-  const bytes = await file.arrayBuffer();
-  const buffer = Buffer.from(bytes);
+  const blob = await put(`oeuvres/${safeName}`, file, {
+    access: "public",
+    addRandomSuffix: false,
+  });
 
-  await ghWriteBinary(
-    `public/images/oeuvres/${safeName}`,
-    buffer,
-    `admin: upload image ${safeName}`
-  );
-
-  return NextResponse.json({ url: `/images/oeuvres/${safeName}` });
+  return NextResponse.json({ url: blob.url });
 }

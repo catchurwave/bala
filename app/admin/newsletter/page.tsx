@@ -1,27 +1,11 @@
-import fs from "fs";
-import path from "path";
-
-const FILE = path.join(process.cwd(), "content/newsletter.json");
-
-type Subscriber = { email: string; lang: string; date: string };
-
-function readSubscribers(): Subscriber[] {
-  if (!fs.existsSync(FILE)) return [];
-  try {
-    return JSON.parse(fs.readFileSync(FILE, "utf-8"));
-  } catch {
-    return [];
-  }
-}
+import { dbGetSubscribers } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
-export default function NewsletterAdminPage() {
-  const subscribers = readSubscribers().sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
+export default async function NewsletterAdminPage() {
+  const subscribers = await dbGetSubscribers();
 
-  const csvData = `email,langue,date\n${subscribers.map((s) => `${s.email},${s.lang},${s.date}`).join("\n")}`;
+  const csvData = `email,langue,date\n${subscribers.map((s) => `${s.email},${s.lang},${s.subscribed_at}`).join("\n")}`;
   const csvB64 = Buffer.from(csvData).toString("base64");
 
   return (
@@ -42,7 +26,6 @@ export default function NewsletterAdminPage() {
         )}
       </div>
 
-      {/* Stats by lang */}
       <div className="grid grid-cols-3 gap-4 mb-8">
         {[
           { label: "Total", value: subscribers.length, color: "text-[#C8A96E]" },
@@ -66,9 +49,7 @@ export default function NewsletterAdminPage() {
             <thead>
               <tr className="border-b border-[#3D3A36]">
                 {["Email", "Langue", "Date d'inscription"].map((h) => (
-                  <th key={h} className="text-left px-4 py-3 text-xs tracking-widest uppercase text-[#6B6560]">
-                    {h}
-                  </th>
+                  <th key={h} className="text-left px-4 py-3 text-xs tracking-widest uppercase text-[#6B6560]">{h}</th>
                 ))}
               </tr>
             </thead>
@@ -82,7 +63,7 @@ export default function NewsletterAdminPage() {
                     </span>
                   </td>
                   <td className="px-4 py-3 text-[#6B6560]">
-                    {new Date(s.date).toLocaleDateString("fr-FR", {
+                    {new Date(s.subscribed_at).toLocaleDateString("fr-FR", {
                       day: "numeric", month: "long", year: "numeric",
                       hour: "2-digit", minute: "2-digit",
                     })}
@@ -93,14 +74,6 @@ export default function NewsletterAdminPage() {
           </table>
         </div>
       )}
-
-      <div className="mt-6 bg-[#2C2A27] border border-[#3D3A36] p-4 text-xs text-[#4A4843]">
-        <strong className="text-[#6B6560]">Intégration email :</strong>{" "}
-        Pour envoyer des emails à vos abonnés, exportez le CSV et importez dans{" "}
-        <span className="text-[#C8A96E]">Brevo</span> ou{" "}
-        <span className="text-[#C8A96E]">Mailchimp</span>.
-        Voir <code className="text-[#C8A96E]">app/api/newsletter/route.ts</code> pour l&apos;intégration API directe.
-      </div>
     </div>
   );
 }

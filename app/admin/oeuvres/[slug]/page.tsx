@@ -1,4 +1,4 @@
-import { getOeuvre } from "@/lib/oeuvres";
+import { dbGetOeuvre } from "@/lib/db";
 import { notFound } from "next/navigation";
 import OeuvreForm from "../OeuvreForm";
 
@@ -10,7 +10,7 @@ export default async function EditOeuvrePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const oeuvre = getOeuvre(slug);
+  const oeuvre = await dbGetOeuvre(slug);
   if (!oeuvre) notFound();
 
   return (

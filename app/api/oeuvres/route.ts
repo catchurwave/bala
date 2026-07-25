@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { getAllOeuvres } from "@/lib/oeuvres";
+import { dbGetAllOeuvres } from "@/lib/db";
 
-export function GET() {
-  const oeuvres = getAllOeuvres();
+export async function GET() {
+  const oeuvres = await dbGetAllOeuvres();
   return NextResponse.json(oeuvres);
 }

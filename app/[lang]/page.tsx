@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getDictionary, hasLocale } from "@/lib/dictionaries";
 import { notFound } from "next/navigation";
-import { getFeaturedOeuvres } from "@/lib/oeuvres";
+import { dbGetFeatured } from "@/lib/db";
 import OeuvreCard from "@/components/OeuvreCard";
 import Reassurance from "@/components/Reassurance";
 import Newsletter from "@/components/Newsletter";
@@ -15,7 +15,7 @@ export default async function HomePage({
   if (!hasLocale(lang)) notFound();
 
   const dict = await getDictionary(lang);
-  const featured = getFeaturedOeuvres(3);
+  const featured = await dbGetFeatured(3);
 
   return (
     <>
