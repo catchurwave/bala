@@ -37,10 +37,20 @@ export async function POST(req: NextRequest) {
   try {
     const blob = await put(`oeuvres/${safeName}`, file, {
       access: "public",
-      addRandomSuffix: false,
+      addRandomSuffix: true,
     });
     return NextResponse.json({ url: blob.url });
   } catch (err) {
-    return NextResponse.json({ error: String(err) }, { status: 500 });
+    const msg = String(err);
+    if (msg.includes("private store")) {
+      return NextResponse.json(
+        {
+          error:
+            "Le store Blob est configuré en accès privé. Va dans Vercel → Storage → supprime le store actuel → recrée-le en choisissant \"Public\".",
+        },
+        { status: 500 }
+      );
+    }
+    return NextResponse.json({ error: msg }, { status: 500 });
   }
 }
