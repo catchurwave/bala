@@ -89,11 +89,13 @@ export default async function ArtistePage({
               <p className="text-[#4A4843] leading-[1.9]">{t.influences}</p>
 
               {/* Sisley tribute */}
-              <blockquote className="mt-6 pl-5 border-l-2 border-[#C8A96E] font-serif text-xl italic text-[#6B6560]">
-                {lang === "fr"
-                  ? "« Sisley m'a appris que la lumière n'est pas un détail — c'est le sujet lui-même. »"
-                  : "\"Sisley taught me that light is not a detail — it is the subject itself.\""}
-              </blockquote>
+              {(savedBio?.citation_artiste_fr || savedBio?.citation_artiste_en) && (
+                <blockquote className="mt-6 pl-5 border-l-2 border-[#C8A96E] font-serif text-xl italic text-[#6B6560]">
+                  {lang === "fr"
+                    ? (savedBio?.citation_artiste_fr || "« Sisley m'a appris que la lumière n'est pas un détail — c'est le sujet lui-même. »")
+                    : (savedBio?.citation_artiste_en || "\"Sisley taught me that light is not a detail — it is the subject itself.\"")}
+                </blockquote>
+              )}
             </div>
 
             <div>

@@ -127,13 +127,13 @@ export default async function HomePage({
             </p>
             <h2 className="font-serif text-4xl md:text-5xl text-[#F7F2E8] font-light mb-6 leading-tight">
               {lang === "fr"
-                ? "Un regard impressionniste sur le monde"
-                : "An impressionist eye on the world"}
+                ? (bio.tagline_fr || "Un regard impressionniste sur le monde")
+                : (bio.tagline_en || "An impressionist eye on the world")}
             </h2>
             <p className="text-[#A09888] leading-relaxed mb-8">
               {lang === "fr"
-                ? "Influencé par Alfred Sisley et les grands maîtres de l'impressionnisme, cet artiste capture la lumière changeante des paysages, des marines et des jardins avec une touche sensible et vibrante."
-                : "Influenced by Alfred Sisley and the great Impressionist masters, this artist captures the changing light of landscapes, seascapes, and gardens with a sensitive, vibrant brushstroke."}
+                ? (bio.tagline_desc_fr || "Influencé par Alfred Sisley et les grands maîtres de l'impressionnisme, cet artiste capture la lumière changeante des paysages, des marines et des jardins avec une touche sensible et vibrante.")
+                : (bio.tagline_desc_en || "Influenced by Alfred Sisley and the great Impressionist masters, this artist captures the changing light of landscapes, seascapes, and gardens with a sensitive, vibrant brushstroke.")}
             </p>
             <Link
               href={`/${lang}/artiste`}
@@ -173,13 +173,13 @@ export default async function HomePage({
           </p>
           <h2 className="font-serif text-4xl md:text-5xl text-[#2C2A27] font-light mb-6">
             {lang === "fr"
-              ? "Apportez l'impressionnisme chez vous"
-              : "Bring Impressionism into your home"}
+              ? (bio.boutique_titre_fr || "Apportez l'impressionnisme chez vous")
+              : (bio.boutique_titre_en || "Bring Impressionism into your home")}
           </h2>
           <p className="text-[#6B6560] mb-10 leading-relaxed">
             {lang === "fr"
-              ? "Chaque tableau est une œuvre originale, peinte à la main. Livraison soigneuse, certificat d'authenticité inclus."
-              : "Each painting is an original work, painted by hand. Careful delivery, certificate of authenticity included."}
+              ? (bio.boutique_desc_fr || "Chaque tableau est une œuvre originale, peinte à la main. Livraison soigneuse, certificat d'authenticité inclus.")
+              : (bio.boutique_desc_en || "Each painting is an original work, painted by hand. Careful delivery, certificate of authenticity included.")}
           </p>
           <Link
             href={`/${lang}/boutique`}

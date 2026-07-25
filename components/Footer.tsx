@@ -11,7 +11,15 @@ type Dict = {
   };
 };
 
-export default function Footer({ lang, dict }: { lang: string; dict: Dict }) {
+export default function Footer({
+  lang,
+  dict,
+  bio = {},
+}: {
+  lang: string;
+  dict: Dict;
+  bio?: Record<string, string>;
+}) {
   const year = new Date().getFullYear();
 
   return (
@@ -21,12 +29,12 @@ export default function Footer({ lang, dict }: { lang: string; dict: Dict }) {
           {/* Brand */}
           <div>
             <p className="font-serif text-3xl italic text-[#C8A96E] font-light mb-4">
-              Atelier
+              {bio.nom_atelier || bio.nom_complet || "Atelier"}
             </p>
             <p className="text-sm leading-relaxed text-[#A09888] max-w-xs">
               {lang === "fr"
-                ? "Peintre impressionniste inspiré par la lumière, la nature et la tradition de Sisley."
-                : "Impressionist painter inspired by light, nature, and the tradition of Sisley."}
+                ? (bio.bio_court_fr || "Peintre impressionniste inspiré par la lumière, la nature et la tradition de Sisley.")
+                : (bio.bio_court_en || "Impressionist painter inspired by light, nature, and the tradition of Sisley.")}
             </p>
           </div>
 

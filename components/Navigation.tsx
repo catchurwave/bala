@@ -17,9 +17,11 @@ type Dict = {
 export default function Navigation({
   lang,
   dict,
+  artistName = "Atelier",
 }: {
   lang: string;
   dict: Dict;
+  artistName?: string;
 }) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
@@ -60,7 +62,7 @@ export default function Navigation({
           href={`/${lang}`}
           className="font-serif text-2xl tracking-wide text-[#2C2A27] hover:text-[#C8A96E] transition-colors"
         >
-          <span className="italic font-light">Atelier</span>
+          <span className="italic font-light">{artistName}</span>
         </Link>
 
         {/* Desktop links */}
