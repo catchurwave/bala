@@ -9,22 +9,24 @@ function getStripe() {
 
 export async function POST(req: NextRequest) {
   const stripe = getStripe();
-  const { slug, titre, prix, lang } = await req.json();
+  const { slug, titre, prix, lang, embedded } = await req.json();
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? req.headers.get("origin") ?? "";
 
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ["card"],
-    line_items: [
-      {
-        price_data: {
-          currency: "eur",
-          unit_amount: prix * 100,
-          product_data: { name: titre, metadata: { slug } },
-        },
-        quantity: 1,
+  const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [
+    {
+      price_data: {
+        currency: "eur",
+        unit_amount: prix * 100,
+        product_data: { name: titre, metadata: { slug } },
       },
-    ],
+      quantity: 1,
+    },
+  ];
+
+  const common: Partial<Stripe.Checkout.SessionCreateParams> = {
+    payment_method_types: ["card"],
+    line_items: lineItems,
     mode: "payment",
     customer_creation: "always",
     phone_number_collection: { enabled: true },
@@ -32,9 +34,23 @@ export async function POST(req: NextRequest) {
       allowed_countries: ["FR", "BE", "CH", "LU", "MC", "GB", "DE", "ES", "IT", "NL", "PT", "US", "CA", "AU"],
     },
     billing_address_collection: "required",
-    success_url: `${baseUrl}/${lang}/boutique/${slug}?success=1`,
-    cancel_url: `${baseUrl}/${lang}/boutique/${slug}?cancel=1`,
     metadata: { slug, lang },
+  };
+
+  if (embedded) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const session = await (stripe.checkout.sessions.create as any)({
+      ...common,
+      ui_mode: "embedded",
+      return_url: `${baseUrl}/${lang}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+    });
+    return NextResponse.json({ clientSecret: session.client_secret });
+  }
+
+  const session = await stripe.checkout.sessions.create({
+    ...common,
+    success_url: `${baseUrl}/${lang}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${baseUrl}/${lang}/boutique/${slug}`,
   });
 
   return NextResponse.json({ url: session.url });

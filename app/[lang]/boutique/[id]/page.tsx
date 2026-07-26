@@ -80,13 +80,12 @@ export default async function OeuvrePage({
                     minimumFractionDigits: 0,
                   })}
                 </p>
-                <span
-                  className={`text-xs tracking-widest uppercase px-3 py-1 border ${
-                    oeuvre.disponible
-                      ? "text-[#4A6741] border-[#4A6741]"
-                      : "text-[#A09888] border-[#A09888]"
-                  }`}
-                >
+                <span className={`inline-flex items-center gap-2 text-xs tracking-widest uppercase px-3 py-1 border ${
+                  oeuvre.disponible
+                    ? "text-[#4A6741] border-[#4A6741]"
+                    : "text-red-500 border-red-400"
+                }`}>
+                  <span className={`w-2 h-2 rounded-full ${oeuvre.disponible ? "bg-[#4A6741]" : "bg-red-500"}`} />
                   {oeuvre.disponible ? dict.shop.available : dict.shop.sold}
                 </span>
               </div>

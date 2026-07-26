@@ -67,6 +67,21 @@ export default function GalerieGrid({ oeuvres, lang }: { oeuvres: OeuvreRow[]; l
                         </svg>
                       </div>
                     )}
+                    {/* Status dot — only for paintings with price */}
+                    {o.prix != null && (
+                      <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5">
+                        <span
+                          className={`w-2.5 h-2.5 rounded-full ring-2 ring-white/80 ${
+                            o.disponible ? "bg-[#4A6741]" : "bg-red-500"
+                          }`}
+                        />
+                        <span className="text-[10px] uppercase tracking-wider text-white/90 font-medium drop-shadow">
+                          {o.disponible
+                            ? (lang === "fr" ? "En vente" : "For sale")
+                            : (lang === "fr" ? "Vendu" : "Sold")}
+                        </span>
+                      </div>
+                    )}
                     {/* Hover overlay with quick-view */}
                     <div className="absolute inset-0 bg-[#2C2A27]/0 group-hover:bg-[#2C2A27]/40 transition-all duration-300 flex flex-col items-center justify-center gap-2">
                       <button

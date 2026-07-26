@@ -76,13 +76,30 @@ export default async function OeuvreGaleriePage({
             </div>
 
             {oeuvre.prix != null ? (
-              <div className="border-t border-[#EDE5D4] pt-6">
-                <Link
-                  href={`/${lang}/boutique/${oeuvre.slug}`}
-                  className="inline-block bg-[#C8A96E] text-[#F7F2E8] text-sm tracking-widest uppercase px-8 py-3 hover:bg-[#A88748] transition-colors"
-                >
-                  {lang === "fr" ? "Voir en boutique" : "View in shop"} →
-                </Link>
+              <div className="border-t border-[#EDE5D4] pt-6 space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="font-serif text-2xl text-[#2C2A27]">
+                    {oeuvre.prix.toLocaleString(lang === "fr" ? "fr-FR" : "en-GB", {
+                      style: "currency", currency: "EUR", minimumFractionDigits: 0,
+                    })}
+                  </span>
+                  <span className={`inline-flex items-center gap-1.5 text-xs tracking-widest uppercase px-3 py-1 border ${
+                    oeuvre.disponible ? "text-[#4A6741] border-[#4A6741]" : "text-red-500 border-red-400"
+                  }`}>
+                    <span className={`w-2 h-2 rounded-full ${oeuvre.disponible ? "bg-[#4A6741]" : "bg-red-500"}`} />
+                    {oeuvre.disponible
+                      ? (lang === "fr" ? "En vente" : "For sale")
+                      : (lang === "fr" ? "Vendu" : "Sold")}
+                  </span>
+                </div>
+                {oeuvre.disponible && (
+                  <Link
+                    href={`/${lang}/boutique/${oeuvre.slug}`}
+                    className="block text-center bg-[#C8A96E] text-[#F7F2E8] text-sm tracking-widest uppercase px-8 py-3 hover:bg-[#A88748] transition-colors"
+                  >
+                    {lang === "fr" ? "Acquérir cette œuvre" : "Acquire this work"} →
+                  </Link>
+                )}
               </div>
             ) : (
               <div className="border-t border-[#EDE5D4] pt-6">
