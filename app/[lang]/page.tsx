@@ -5,6 +5,7 @@ import { dbGetFeatured, dbGetBio } from "@/lib/db";
 import OeuvreCard from "@/components/OeuvreCard";
 import Reassurance from "@/components/Reassurance";
 import Newsletter from "@/components/Newsletter";
+import { BrushStroke, Diamond, SectionHeader } from "@/components/Ornament";
 
 export const dynamic = "force-dynamic";
 
@@ -17,51 +18,62 @@ export default async function HomePage({
   if (!hasLocale(lang)) notFound();
 
   const dict = await getDictionary(lang);
-  const [featured, bio] = await Promise.all([dbGetFeatured(3), dbGetBio().catch((): Record<string, string> => ({}))]);
+  const [featured, bio] = await Promise.all([
+    dbGetFeatured(3),
+    dbGetBio().catch((): Record<string, string> => ({})),
+  ]);
+
   const artistPrenom = bio.nom || "Jean";
   const artistNom = bio.nom_complet?.split(" ").slice(1).join(" ") || "Balabanian";
   const quote = lang === "fr" ? (bio.citation || dict.home.quote) : (bio.citation_en || dict.home.quote);
 
   return (
     <>
-      {/* HERO */}
+      {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
-        {/* Background — gradient impressionniste */}
         <div
           className="absolute inset-0"
           style={{
             background: `
-              radial-gradient(ellipse at 20% 50%, rgba(123,163,184,0.25) 0%, transparent 60%),
-              radial-gradient(ellipse at 80% 20%, rgba(200,169,110,0.20) 0%, transparent 50%),
-              radial-gradient(ellipse at 60% 80%, rgba(74,103,65,0.15) 0%, transparent 50%),
+              radial-gradient(ellipse at 15% 45%, rgba(91,155,168,0.18) 0%, transparent 55%),
+              radial-gradient(ellipse at 85% 20%, rgba(200,169,110,0.22) 0%, transparent 50%),
+              radial-gradient(ellipse at 55% 85%, rgba(74,103,65,0.12) 0%, transparent 50%),
+              radial-gradient(ellipse at 40% 30%, rgba(196,103,75,0.08) 0%, transparent 45%),
               #F7F2E8
             `,
           }}
         />
+        <div className="absolute inset-0 texture-overlay opacity-70" />
 
-        {/* Painterly texture */}
-        <div className="absolute inset-0 texture-overlay opacity-60" />
+        {/* Vertical accent lines */}
+        <div className="absolute top-1/4 left-10 w-px h-40 bg-gradient-to-b from-transparent via-[#C8A96E]/30 to-transparent" />
+        <div className="absolute top-1/4 right-10 w-px h-40 bg-gradient-to-b from-transparent via-[#C8A96E]/30 to-transparent" />
 
-        {/* Decorative lines */}
-        <div className="absolute top-1/3 left-8 w-px h-32 bg-gradient-to-b from-transparent via-[#C8A96E]/40 to-transparent" />
-        <div className="absolute top-1/3 right-8 w-px h-32 bg-gradient-to-b from-transparent via-[#C8A96E]/40 to-transparent" />
+        {/* Top decorative line */}
+        <div className="absolute top-28 left-1/2 -translate-x-1/2 w-px h-8 bg-gradient-to-b from-[#C8A96E]/40 to-transparent" />
 
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-          {/* Eyebrow */}
-          <p className="text-xs tracking-[0.3em] uppercase text-[#C8A96E] mb-6">
+          <div className="flex justify-center mb-5">
+            <Diamond color="#C8A96E" />
+          </div>
+
+          <p className="text-xs tracking-[0.35em] uppercase text-[#C8A96E] mb-6">
             {dict.home.hero_subtitle}
           </p>
 
-          <h1 className="font-serif text-6xl md:text-8xl lg:text-9xl text-[#2C2A27] leading-none mb-8 font-light">
+          <h1 className="font-serif text-6xl md:text-8xl lg:text-9xl text-[#2C2A27] leading-none mb-4 font-light">
             <span className="italic">{artistPrenom}</span>{" "}
             <span className="font-normal">{artistNom}</span>
           </h1>
 
-          <blockquote className="font-serif text-xl md:text-2xl italic text-[#6B6560] mb-12 max-w-xl mx-auto leading-relaxed">
+          <div className="flex justify-center mb-8">
+            <BrushStroke width={220} />
+          </div>
+
+          <blockquote className="quote-artistic font-serif text-xl md:text-2xl text-[#7A6E65] mb-12 max-w-xl mx-auto leading-relaxed pl-6">
             &ldquo;{quote}&rdquo;
           </blockquote>
 
-          {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href={`/${lang}/galerie`}
@@ -78,7 +90,6 @@ export default async function HomePage({
           </div>
         </div>
 
-        {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[#A09888]">
           <span className="text-xs tracking-widest uppercase">
             {lang === "fr" ? "Défiler" : "Scroll"}
@@ -87,18 +98,18 @@ export default async function HomePage({
         </div>
       </section>
 
-      {/* FEATURED WORKS */}
+      {/* ── SECTION DIVIDER ──────────────────────────────────────── */}
+      <div className="watercolor-divider mx-auto max-w-2xl my-0 opacity-60" />
+
+      {/* ── FEATURED WORKS ──────────────────────────────────────── */}
       {featured.length > 0 && (
-        <section className="py-24 px-6">
+        <section className="py-24 px-6 atelier-section">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <p className="text-xs tracking-[0.3em] uppercase text-[#C8A96E] mb-4">
-                {dict.home.featured_subtitle}
-              </p>
-              <h2 className="font-serif text-4xl md:text-5xl text-[#2C2A27] font-light">
-                {dict.home.featured_title}
-              </h2>
-            </div>
+            <SectionHeader
+              eyebrow={dict.home.featured_subtitle}
+              title={dict.home.featured_title}
+              className="mb-16"
+            />
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
               {featured.map((oeuvre) => (
@@ -109,31 +120,50 @@ export default async function HomePage({
             <div className="text-center mt-16">
               <Link
                 href={`/${lang}/galerie`}
-                className="inline-block border-b border-[#C8A96E] text-sm tracking-widest uppercase text-[#2C2A27] pb-1 hover:text-[#C8A96E] transition-colors"
+                className="inline-flex items-center gap-3 text-sm tracking-widest uppercase text-[#2C2A27] hover:text-[#C8A96E] transition-colors group"
               >
-                {dict.home.view_all}
+                <span>{dict.home.view_all}</span>
+                <span className="block h-px w-8 bg-[#C8A96E] group-hover:w-16 transition-all duration-300" />
               </Link>
             </div>
           </div>
         </section>
       )}
 
-      {/* ABOUT STRIP */}
-      <section className="bg-[#2C2A27] py-24 px-6">
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+      {/* ── SECTION DIVIDER ──────────────────────────────────────── */}
+      <div className="watercolor-divider mx-auto max-w-2xl opacity-60" />
+
+      {/* ── ABOUT STRIP ─────────────────────────────────────────── */}
+      <section className="bg-[#2C2A27] py-24 px-6 relative overflow-hidden">
+        {/* Subtle texture on dark bg */}
+        <div className="absolute inset-0 texture-overlay opacity-40" />
+
+        {/* Corner brushstroke decoration */}
+        <div className="absolute top-8 left-8 opacity-10">
+          <BrushStroke color="#C8A96E" width={120} />
+        </div>
+        <div className="absolute bottom-8 right-8 opacity-10 rotate-180">
+          <BrushStroke color="#C8A96E" width={120} />
+        </div>
+
+        <div className="relative max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center">
           <div>
-            <p className="text-xs tracking-[0.3em] uppercase text-[#C8A96E] mb-4">
-              {dict.nav.artist}
-            </p>
-            <h2 className="font-serif text-4xl md:text-5xl text-[#F7F2E8] font-light mb-6 leading-tight">
+            <div className="flex items-center gap-3 mb-6">
+              <Diamond color="#C8A96E" />
+              <p className="text-xs tracking-[0.3em] uppercase text-[#C8A96E]">
+                {dict.nav.artist}
+              </p>
+            </div>
+            <h2 className="font-serif text-4xl md:text-5xl text-[#F7F2E8] font-light mb-4 leading-tight">
               {lang === "fr"
-                ? (bio.tagline_fr || "Un regard impressionniste sur le monde")
-                : (bio.tagline_en || "An impressionist eye on the world")}
+                ? (bio.tagline_fr || "Un regard vivant sur le monde")
+                : (bio.tagline_en || "A vibrant eye on the world")}
             </h2>
+            <BrushStroke color="#C8A96E" width={160} className="mb-6" />
             <p className="text-[#A09888] leading-relaxed mb-8">
               {lang === "fr"
-                ? (bio.tagline_desc_fr || "Influencé par Alfred Sisley et les grands maîtres de l'impressionnisme, cet artiste capture la lumière changeante des paysages, des marines et des jardins avec une touche sensible et vibrante.")
-                : (bio.tagline_desc_en || "Influenced by Alfred Sisley and the great Impressionist masters, this artist captures the changing light of landscapes, seascapes, and gardens with a sensitive, vibrant brushstroke.")}
+                ? (bio.tagline_desc_fr || "Entre impressionnisme et expressionnisme, entre villes chatoyantes et paysages lumineux, Bala peint avec une liberté et une couleur qui lui sont propres.")
+                : (bio.tagline_desc_en || "Between Impressionism and Expressionism, between vibrant cities and luminous landscapes, Bala paints with a freedom and color that are uniquely his own.")}
             </p>
             <Link
               href={`/${lang}/artiste`}
@@ -143,43 +173,68 @@ export default async function HomePage({
             </Link>
           </div>
 
-          {/* Decorative palette colors */}
-          <div className="relative hidden md:block">
+          {/* Palette decoration */}
+          <div className="relative hidden md:flex flex-col items-center gap-6">
+            <p className="text-xs text-[#6B6560] uppercase tracking-widest text-center">
+              {lang === "fr" ? "La palette de l'atelier" : "The atelier palette"}
+            </p>
             <div className="grid grid-cols-3 gap-3">
               {[
-                "#C8A96E", "#7BA3B8", "#4A6741",
-                "#8B4513", "#D4C9B6", "#2C2A27",
-                "#EDE5D4", "#A88748", "#5A849E",
-              ].map((color, i) => (
-                <div
-                  key={i}
-                  className="aspect-square rounded-sm opacity-80"
-                  style={{ backgroundColor: color }}
-                />
+                { color: "#5B9BA8", label: "Turquoise" },
+                { color: "#C8A96E", label: "Ocre" },
+                { color: "#4A6741", label: "Forêt" },
+                { color: "#C4674B", label: "Corail" },
+                { color: "#7BA3B8", label: "Ciel" },
+                { color: "#D4C9B6", label: "Brume" },
+                { color: "#8B4513", label: "Sienna" },
+                { color: "#A88748", label: "Or foncé" },
+                { color: "#EDE5D4", label: "Crème" },
+              ].map(({ color, label }) => (
+                <div key={color} className="group relative aspect-square">
+                  <div
+                    className="w-full h-full rounded-sm opacity-80 hover:opacity-100 transition-opacity cursor-default"
+                    style={{ backgroundColor: color }}
+                    title={label}
+                  />
+                </div>
               ))}
             </div>
-            <p className="text-xs text-[#6B6560] mt-4 text-center italic">
-              {lang === "fr" ? "La palette de l'artiste" : "The artist's palette"}
-            </p>
+            <Diamond color="#C8A96E" />
           </div>
         </div>
       </section>
 
-      {/* BOUTIQUE CTA */}
-      <section className="py-24 px-6 bg-[#EDE5D4]">
-        <div className="max-w-3xl mx-auto text-center">
+      {/* ── BOUTIQUE CTA ────────────────────────────────────────── */}
+      <section className="py-24 px-6 linen-bg relative overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 watercolor-divider opacity-40" />
+
+        {/* Decorative corner brush strokes */}
+        <div className="absolute top-12 left-0 opacity-15 -rotate-12">
+          <BrushStroke color="#C8A96E" width={100} />
+        </div>
+        <div className="absolute bottom-12 right-0 opacity-15 rotate-12">
+          <BrushStroke color="#C8A96E" width={100} />
+        </div>
+
+        <div className="max-w-3xl mx-auto text-center relative">
+          <div className="flex justify-center mb-6">
+            <Diamond />
+          </div>
           <p className="text-xs tracking-[0.3em] uppercase text-[#C8A96E] mb-4">
             {dict.nav.shop}
           </p>
-          <h2 className="font-serif text-4xl md:text-5xl text-[#2C2A27] font-light mb-6">
+          <h2 className="font-serif text-4xl md:text-5xl text-[#2C2A27] font-light mb-4">
             {lang === "fr"
-              ? (bio.boutique_titre_fr || "Apportez l'impressionnisme chez vous")
-              : (bio.boutique_titre_en || "Bring Impressionism into your home")}
+              ? (bio.boutique_titre_fr || "Apportez l'art chez vous")
+              : (bio.boutique_titre_en || "Bring art into your home")}
           </h2>
-          <p className="text-[#6B6560] mb-10 leading-relaxed">
+          <div className="flex justify-center mb-6">
+            <BrushStroke />
+          </div>
+          <p className="text-[#6B6560] mb-10 leading-relaxed max-w-lg mx-auto">
             {lang === "fr"
-              ? (bio.boutique_desc_fr || "Chaque tableau est une œuvre originale, peinte à la main. Livraison soigneuse, certificat d'authenticité inclus.")
-              : (bio.boutique_desc_en || "Each painting is an original work, painted by hand. Careful delivery, certificate of authenticity included.")}
+              ? (bio.boutique_desc_fr || "Chaque tableau est une œuvre originale, peinte à la main. Livraison soigneuse, certificat d'authenticité signé par l'artiste inclus.")
+              : (bio.boutique_desc_en || "Each painting is an original work, painted by hand. Careful delivery, certificate of authenticity hand-signed by the artist included.")}
           </p>
           <Link
             href={`/${lang}/boutique`}
@@ -188,12 +243,13 @@ export default async function HomePage({
             {dict.home.hero_cta_shop}
           </Link>
         </div>
+        <div className="absolute bottom-0 left-0 right-0 watercolor-divider opacity-40" />
       </section>
 
-      {/* REASSURANCE */}
+      {/* ── REASSURANCE ─────────────────────────────────────────── */}
       <Reassurance lang={lang} />
 
-      {/* NEWSLETTER */}
+      {/* ── NEWSLETTER ──────────────────────────────────────────── */}
       <Newsletter lang={lang} />
     </>
   );

@@ -2,15 +2,18 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Impressionist palette — Sisley inspired */
+  /* L'atelier de Bala — palette impressionniste */
   --color-cream: #F7F2E8;
   --color-cream-dark: #EDE5D4;
+  --color-parchment: #FAF6EE;
   --color-ochre: #C8A96E;
   --color-ochre-dark: #A88748;
   --color-forest: #4A6741;
   --color-forest-dark: #324828;
   --color-sky: #7BA3B8;
   --color-sky-dark: #5A849E;
+  --color-teal: #5B9BA8;
+  --color-coral: #C4674B;
   --color-charcoal: #2C2A27;
   --color-charcoal-light: #4A4843;
   --color-mist: #D4C9B6;
@@ -23,13 +26,8 @@
   --color-foreground: var(--color-charcoal);
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 body {
   background-color: var(--color-cream);
@@ -44,12 +42,19 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
 }
 
-/* Painterly texture overlay for hero */
+/* ── Canvas / linen texture ─────────────────────────────── */
 .texture-overlay {
-  background-image: url("data:image/svg+xml,%3Csvg width='300' height='300' viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeBlend in='SourceGraphic' mode='multiply'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg width='400' height='400' viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeBlend in='SourceGraphic' mode='multiply'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
 }
 
-/* Brush stroke underline for headings */
+/* Linen background for light sections */
+.linen-bg {
+  background-color: var(--color-parchment);
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeBlend in='SourceGraphic' mode='multiply'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+}
+
+/* ── Brush stroke underline for headings ──────────────────── */
 .brush-underline {
   position: relative;
   display: inline-block;
@@ -57,39 +62,103 @@ h1, h2, h3, h4, h5, h6 {
 .brush-underline::after {
   content: "";
   position: absolute;
-  bottom: -6px;
+  bottom: -8px;
   left: 0;
   width: 100%;
   height: 3px;
-  background: linear-gradient(90deg, var(--color-ochre), var(--color-ochre-dark), var(--color-ochre));
+  background: linear-gradient(90deg, transparent 0%, var(--color-ochre) 20%, var(--color-ochre-dark) 60%, var(--color-ochre) 80%, transparent 100%);
   border-radius: 2px;
-  opacity: 0.8;
+  opacity: 0.75;
 }
 
-/* Painting card hover */
+/* ── Painting card ──────────────────────────────────────────── */
 .painting-card {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .painting-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(44, 42, 39, 0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 24px 48px rgba(44, 42, 39, 0.12);
 }
 
-/* Frame effect for images */
+/* ── Frame (golden) ─────────────────────────────────────────── */
 .frame {
   position: relative;
   padding: 8px;
-  background: linear-gradient(135deg, #C8A96E 0%, #E8D5A3 30%, #A88748 60%, #D4B878 100%);
+  background: linear-gradient(145deg, #D4B878 0%, #E8D5A3 25%, #C8A96E 50%, #E0C97A 75%, #A88748 100%);
   box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,0.3),
+    inset 0 0 0 1px rgba(255,255,255,0.25),
     0 8px 32px rgba(44, 42, 39, 0.2),
     0 2px 8px rgba(44, 42, 39, 0.1);
 }
 .frame::before {
   content: "";
   position: absolute;
-  inset: 2px;
-  border: 1px solid rgba(44, 42, 39, 0.15);
+  inset: 3px;
+  border: 1px solid rgba(44, 42, 39, 0.12);
   pointer-events: none;
   z-index: 1;
+}
+
+/* ── Watercolor section divider ─────────────────────────────── */
+.watercolor-divider {
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(200,169,110,0.3) 15%,
+    rgba(91,155,168,0.4) 40%,
+    rgba(200,169,110,0.5) 65%,
+    rgba(74,103,65,0.3) 85%,
+    transparent 100%
+  );
+  border-radius: 2px;
+}
+
+/* ── Quote decorative ────────────────────────────────────────── */
+.quote-artistic {
+  position: relative;
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+.quote-artistic::before {
+  content: "\201C";
+  position: absolute;
+  top: -0.3em;
+  left: -0.5em;
+  font-size: 4em;
+  line-height: 1;
+  color: var(--color-ochre);
+  opacity: 0.25;
+  font-family: Georgia, serif;
+  pointer-events: none;
+}
+
+/* ── Section with subtle warm gradient ───────────────────────── */
+.atelier-section {
+  background: linear-gradient(
+    180deg,
+    var(--color-cream) 0%,
+    rgba(237,229,212,0.4) 50%,
+    var(--color-cream) 100%
+  );
+}
+
+/* ── Card corner accent ──────────────────────────────────────── */
+.card-accent {
+  position: relative;
+}
+.card-accent::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: var(--color-ochre);
+  opacity: 0;
+  transition: opacity 0.3s ease, width 0.3s ease;
+}
+.card-accent:hover::after {
+  opacity: 1;
+  width: 100%;
 }

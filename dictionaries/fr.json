@@ -7,13 +7,13 @@
     "contact": "Contact"
   },
   "home": {
-    "hero_subtitle": "Peintre Impressionniste",
+    "hero_subtitle": "Peintre — L'atelier de Bala",
     "hero_cta_gallery": "Découvrir les œuvres",
-    "hero_cta_shop": "Acheter une œuvre",
+    "hero_cta_shop": "Acquérir une œuvre",
     "featured_title": "Œuvres récentes",
-    "featured_subtitle": "Explorez les dernières créations",
+    "featured_subtitle": "L'atelier de Bala",
     "view_all": "Voir toute la galerie",
-    "quote": "La lumière est le souffle de la peinture"
+    "quote": "La couleur est la lumière de l'âme"
   },
   "gallery": {
     "title": "Galerie",
@@ -26,7 +26,7 @@
   },
   "shop": {
     "title": "Boutique",
-    "subtitle": "Acquérir une œuvre originale",
+    "subtitle": "Œuvres originales",
     "available": "Disponible",
     "sold": "Vendue",
     "buy": "Acheter",
@@ -54,7 +54,7 @@
     "error": "Une erreur s'est produite. Veuillez réessayer."
   },
   "footer": {
-    "rights": "Tous droits réservés",
+    "rights": "Tous droits réservés — L'atelier de Bala",
     "made_with": "Fait avec passion"
   }
 }

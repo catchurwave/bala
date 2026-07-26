@@ -7,13 +7,13 @@
     "contact": "Contact"
   },
   "home": {
-    "hero_subtitle": "Impressionist Painter",
+    "hero_subtitle": "Painter — Bala's Atelier",
     "hero_cta_gallery": "Discover the works",
-    "hero_cta_shop": "Buy a painting",
+    "hero_cta_shop": "Acquire a painting",
     "featured_title": "Recent Works",
-    "featured_subtitle": "Explore the latest creations",
+    "featured_subtitle": "Bala's Atelier",
     "view_all": "View full gallery",
-    "quote": "Light is the breath of painting"
+    "quote": "Color is the light of the soul"
   },
   "gallery": {
     "title": "Gallery",
@@ -26,7 +26,7 @@
   },
   "shop": {
     "title": "Shop",
-    "subtitle": "Acquire an original work",
+    "subtitle": "Original works",
     "available": "Available",
     "sold": "Sold",
     "buy": "Buy",
@@ -54,7 +54,7 @@
     "error": "An error occurred. Please try again."
   },
   "footer": {
-    "rights": "All rights reserved",
+    "rights": "All rights reserved — Bala's Atelier",
     "made_with": "Made with passion"
   }
 }

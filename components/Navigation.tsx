@@ -17,7 +17,7 @@ type Dict = {
 export default function Navigation({
   lang,
   dict,
-  artistName = "Atelier",
+  artistName = "L'atelier de Bala",
 }: {
   lang: string;
   dict: Dict;
@@ -60,8 +60,13 @@ export default function Navigation({
         {/* Logo / Name */}
         <Link
           href={`/${lang}`}
-          className="font-serif text-2xl tracking-wide text-[#2C2A27] hover:text-[#C8A96E] transition-colors"
+          className="font-serif text-2xl tracking-wide text-[#2C2A27] hover:text-[#C8A96E] transition-colors flex items-center gap-2"
         >
+          {/* Small paintbrush accent */}
+          <svg viewBox="0 0 20 20" width="16" height="16" fill="none" aria-hidden="true" className="text-[#C8A96E] opacity-80 shrink-0">
+            <path d="M 3 17 C 4 15, 6 13, 9 11 L 15 5 C 16 4, 17 4, 17 5 C 17 6, 16 7, 15 8 L 9 14 C 7 16, 5 17, 3 17 Z" stroke="currentColor" strokeWidth="1.2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+            <circle cx="15.5" cy="4.5" r="1" fill="currentColor" opacity="0.6"/>
+          </svg>
           <span className="italic font-light">{artistName}</span>
         </Link>
 

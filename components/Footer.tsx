@@ -29,7 +29,7 @@ export default function Footer({
           {/* Brand */}
           <div>
             <p className="font-serif text-3xl italic text-[#C8A96E] font-light mb-4">
-              {bio.nom_atelier || bio.nom_complet || "Atelier"}
+              {bio.nom_atelier || bio.nom_complet || "L'atelier de Bala"}
             </p>
             <p className="text-sm leading-relaxed text-[#A09888] max-w-xs">
               {lang === "fr"

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import Reassurance from "@/components/Reassurance";
+import { BrushStroke, Diamond } from "@/components/Ornament";
 
 export default async function BoutiquePage({
   params,
@@ -22,13 +23,18 @@ export default async function BoutiquePage({
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
-          <p className="text-xs tracking-[0.3em] uppercase text-[#C8A96E] mb-4">
+          <div className="flex justify-center mb-4">
+            <Diamond />
+          </div>
+          <p className="text-xs tracking-[0.35em] uppercase text-[#C8A96E] mb-3">
             {dict.shop.subtitle}
           </p>
           <h1 className="font-serif text-5xl md:text-7xl text-[#2C2A27] font-light mb-4">
             {dict.shop.title}
           </h1>
-          <div className="w-16 h-px bg-[#C8A96E] mx-auto mb-6" />
+          <div className="flex justify-center mb-6">
+            <BrushStroke width={200} />
+          </div>
           <p className="text-sm text-[#6B6560] max-w-xl mx-auto leading-relaxed">
             {lang === "fr"
               ? "Chaque œuvre est unique, peinte à la main. Livraison sécurisée. Certificat d'authenticité inclus."
@@ -80,8 +86,17 @@ export default async function BoutiquePage({
                           </svg>
                         </div>
                       )}
+                      {/* Status dot */}
+                      {(
+                        <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5">
+                          <span className={`w-2.5 h-2.5 rounded-full ring-2 ring-white/80 ${oeuvre.disponible ? "bg-[#4A6741]" : "bg-red-500"}`} />
+                          <span className="text-[10px] uppercase tracking-wider text-white/90 font-medium drop-shadow">
+                            {oeuvre.disponible ? (lang === "fr" ? "En vente" : "For sale") : (lang === "fr" ? "Vendu" : "Sold")}
+                          </span>
+                        </div>
+                      )}
                       {!oeuvre.disponible && (
-                        <div className="absolute inset-0 bg-[#2C2A27]/50 flex items-center justify-center">
+                        <div className="absolute inset-0 bg-[#2C2A27]/40 flex items-center justify-center">
                           <span className="font-serif text-xl italic text-[#F7F2E8]">{dict.shop.sold}</span>
                         </div>
                       )}
