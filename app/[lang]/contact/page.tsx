@@ -122,13 +122,15 @@ export default function ContactPage({
                 <p className="text-red-600 text-sm">{t.error}</p>
               )}
 
-              <button
-                type="submit"
-                disabled={status === "sending"}
-                className="w-full bg-[#2C2A27] text-[#F7F2E8] text-sm tracking-widest uppercase py-4 hover:bg-[#C8A96E] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
-              >
-                {status === "sending" ? t.sending : t.send}
-              </button>
+              <div className="flex justify-center pt-2">
+                <button
+                  type="submit"
+                  disabled={status === "sending"}
+                  className="btn-primary"
+                >
+                  {status === "sending" ? t.sending : t.send}
+                </button>
+              </div>
             </form>
           )}
         </div>

@@ -24,11 +24,7 @@ export default function GalerieGrid({ oeuvres, lang }: { oeuvres: OeuvreRow[]; l
           <button
             key={key}
             onClick={() => setFilter(key)}
-            className={`text-xs tracking-widest uppercase px-5 py-2 border transition-all ${
-              filter === key
-                ? "bg-[#2C2A27] text-[#F7F2E8] border-[#2C2A27]"
-                : "border-[#D4C9B6] text-[#6B6560] hover:border-[#C8A96E] hover:text-[#C8A96E]"
-            }`}
+            className={filter === key ? "btn-primary btn-sm" : "btn-outline btn-sm"}
           >
             {label}
           </button>

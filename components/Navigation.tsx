@@ -114,19 +114,24 @@ export default function Navigation({
           </Link>
         </div>
 
-        {/* Mobile hamburger */}
+        {/* Mobile hamburger — 3 coups de pinceau */}
         <button
-          className="md:hidden text-[#2C2A27] p-2"
+          className="md:hidden text-[#2C2A27] hover:text-[#C96844] transition-colors duration-200 p-2"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Menu"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            {menuOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
-            )}
-          </svg>
+          {menuOpen ? (
+            <svg className="w-7 h-6" viewBox="0 0 28 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <path d="M4,4 C9,7 19,17 24,20" />
+              <path d="M24,4 C19,7 9,17 4,20" />
+            </svg>
+          ) : (
+            <svg className="w-7 h-6" viewBox="0 0 28 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <path d="M2,5 C8,4 17,6 26,5" />
+              <path d="M2,12 C7,11 20,13 26,12" />
+              <path d="M2,19 C9,18 18,20 26,19" />
+            </svg>
+          )}
         </button>
       </nav>
 
@@ -148,7 +153,7 @@ export default function Navigation({
           <Link
             href={otherPath}
             onClick={() => setMenuOpen(false)}
-            className="text-xs tracking-widest uppercase self-start border border-[#C8A96E] text-[#C8A96E] px-3 py-1"
+            className="btn-outline btn-sm self-start"
           >
             {otherLang.toUpperCase()}
           </Link>
