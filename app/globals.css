@@ -187,11 +187,11 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-sans);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  padding: 0.875rem 2.25rem;
+  padding: 1.1rem 3rem;
   border: none;
   box-shadow: none;
-  filter: drop-shadow(2px 3px 0 rgba(122,58,32,0.4));
-  transition: filter 0.15s ease, transform 0.15s ease;
+  filter: drop-shadow(2px 4px 2px rgba(122,58,32,0.35));
+  transition: filter 0.2s ease, transform 0.2s ease;
   cursor: pointer;
   text-decoration: none;
   white-space: nowrap;
@@ -207,13 +207,13 @@ h1, h2, h3, h4, h5, h6 {
   background: linear-gradient(
     105deg,
     transparent 0%,
-    rgba(255,255,255,0.12) 45%,
-    rgba(255,255,255,0.22) 50%,
-    rgba(255,255,255,0.12) 55%,
+    rgba(255,255,255,0.14) 45%,
+    rgba(255,255,255,0.28) 50%,
+    rgba(255,255,255,0.14) 55%,
     transparent 100%
   );
   transform: skewX(-18deg);
-  transition: left 0.55s ease;
+  transition: left 0.6s ease;
   pointer-events: none;
 }
 .btn-primary:hover::after {
@@ -221,12 +221,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 .btn-primary:hover {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 52'%3E%3Cpath d='M2,26 L0,21' stroke='%23A85535' stroke-width='2' stroke-linecap='round' fill='none' opacity='0.5'/%3E%3Cpath d='M2,26 L0,31' stroke='%23A85535' stroke-width='1.5' stroke-linecap='round' fill='none' opacity='0.3'/%3E%3Cpath d='M2,26 C4,15 18,9 46,9 C88,7 132,7 176,9 C198,10 217,16 218,26 C218,36 200,43 176,43 C132,43 88,43 46,43 C18,43 4,37 2,26Z' fill='%23A85535'/%3E%3C/svg%3E");
-  filter: drop-shadow(1px 1px 0 rgba(122,58,32,0.4));
-  transform: translate(1px, 2px);
+  filter: drop-shadow(3px 6px 6px rgba(122,58,32,0.45));
+  transform: translateY(-3px);
 }
 .btn-primary:active {
-  filter: none;
-  transform: translate(2px, 3px);
+  filter: drop-shadow(1px 2px 1px rgba(122,58,32,0.3));
+  transform: translateY(1px);
 }
 .btn-primary:disabled,
 .btn-primary[disabled] {
@@ -249,10 +249,10 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-sans);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  padding: 0.875rem 2.25rem;
+  padding: 1.1rem 3rem;
   border: none;
   box-shadow: none;
-  transition: color 0.15s ease, transform 0.15s ease;
+  transition: color 0.2s ease, transform 0.2s ease, filter 0.2s ease;
   cursor: pointer;
   text-decoration: none;
   white-space: nowrap;
@@ -267,13 +267,13 @@ h1, h2, h3, h4, h5, h6 {
   background: linear-gradient(
     105deg,
     transparent 0%,
-    rgba(255,255,255,0.12) 45%,
-    rgba(255,255,255,0.22) 50%,
-    rgba(255,255,255,0.12) 55%,
+    rgba(255,255,255,0.14) 45%,
+    rgba(255,255,255,0.28) 50%,
+    rgba(255,255,255,0.14) 55%,
     transparent 100%
   );
   transform: skewX(-18deg);
-  transition: left 0.55s ease;
+  transition: left 0.6s ease;
   pointer-events: none;
 }
 .btn-outline:hover::after {
@@ -282,15 +282,17 @@ h1, h2, h3, h4, h5, h6 {
 .btn-outline:hover {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 52'%3E%3Cpath d='M2,26 L0,21' stroke='%23C96844' stroke-width='2' stroke-linecap='round' fill='none' opacity='0.5'/%3E%3Cpath d='M2,26 L0,31' stroke='%23C96844' stroke-width='1.5' stroke-linecap='round' fill='none' opacity='0.3'/%3E%3Cpath d='M2,26 C4,15 18,9 46,9 C88,7 132,7 176,9 C198,10 217,16 218,26 C218,36 200,43 176,43 C132,43 88,43 46,43 C18,43 4,37 2,26Z' fill='%23C96844'/%3E%3C/svg%3E");
   color: #F7F2E8;
-  transform: translate(1px, 2px);
+  filter: drop-shadow(3px 6px 6px rgba(122,58,32,0.4));
+  transform: translateY(-3px);
 }
 .btn-outline:active {
-  transform: translate(2px, 3px);
+  filter: drop-shadow(1px 2px 1px rgba(122,58,32,0.3));
+  transform: translateY(1px);
 }
 
 /* Small variant */
 .btn-sm {
-  padding: 0.5rem 1.25rem;
+  padding: 0.6rem 1.5rem;
   font-size: 0.65rem;
 }
 
