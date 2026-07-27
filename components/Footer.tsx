@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 type Dict = {
   footer: { rights: string; made_with: string };
@@ -28,9 +29,15 @@ export default function Footer({
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Brand */}
           <div>
-            <p className="font-serif text-3xl italic text-[#C8A96E] font-light mb-4">
-              {bio.nom_atelier || bio.nom_complet || "L'atelier de Bala"}
-            </p>
+            <Link href={`/${lang}`} className="inline-block mb-4 hover:opacity-80 transition-opacity">
+              <Image
+                src="/logo-atelier.png"
+                alt={bio.nom_atelier || bio.nom_complet || "L'atelier de Bala"}
+                width={160}
+                height={54}
+                className="h-14 w-auto object-contain brightness-0 invert opacity-80"
+              />
+            </Link>
             <p className="text-sm leading-relaxed text-[#A09888] max-w-xs">
               {lang === "fr"
                 ? (bio.bio_court_fr || "Peintre impressionniste inspiré par la lumière, la nature et la tradition de Sisley.")

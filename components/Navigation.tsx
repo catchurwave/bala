@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 
@@ -57,17 +58,16 @@ export default function Navigation({
       }`}
     >
       <nav className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        {/* Logo / Name */}
-        <Link
-          href={`/${lang}`}
-          className="font-serif text-2xl tracking-wide text-[#2C2A27] hover:text-[#C8A96E] transition-colors flex items-center gap-2"
-        >
-          {/* Small paintbrush accent */}
-          <svg viewBox="0 0 20 20" width="16" height="16" fill="none" aria-hidden="true" className="text-[#C8A96E] opacity-80 shrink-0">
-            <path d="M 3 17 C 4 15, 6 13, 9 11 L 15 5 C 16 4, 17 4, 17 5 C 17 6, 16 7, 15 8 L 9 14 C 7 16, 5 17, 3 17 Z" stroke="currentColor" strokeWidth="1.2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-            <circle cx="15.5" cy="4.5" r="1" fill="currentColor" opacity="0.6"/>
-          </svg>
-          <span className="italic font-light">{artistName}</span>
+        {/* Logo */}
+        <Link href={`/${lang}`} className="shrink-0 hover:opacity-85 transition-opacity">
+          <Image
+            src="/logo-atelier.png"
+            alt={artistName}
+            width={180}
+            height={60}
+            className="h-12 w-auto object-contain"
+            priority
+          />
         </Link>
 
         {/* Desktop links */}
