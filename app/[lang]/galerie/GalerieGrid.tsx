@@ -86,13 +86,13 @@ export default function GalerieGrid({ oeuvres, lang }: { oeuvres: OeuvreRow[]; l
                     <div className="absolute inset-0 bg-[#2C2A27]/0 group-hover:bg-[#2C2A27]/40 transition-all duration-300 flex flex-col items-center justify-center gap-2">
                       <button
                         onClick={() => open(o)}
-                        className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-[#F7F2E8] text-[#2C2A27] text-[10px] tracking-widest uppercase px-4 py-2 hover:bg-[#C8A96E] hover:text-white transition-colors"
+                        className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 btn-primary btn-sm"
                       >
                         {lang === "fr" ? "Aperçu rapide" : "Quick view"}
                       </button>
                       <Link
                         href={`/${lang}/galerie/${o.slug}`}
-                        className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-[#F7F2E8] text-[10px] tracking-widest uppercase border border-white/50 px-4 py-2 hover:border-[#C8A96E] hover:text-[#C8A96E] transition-colors"
+                        className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-[#F7F2E8] text-[10px] tracking-widest uppercase border border-white/60 px-4 py-2 hover:border-[#C96844] hover:text-[#C96844] transition-colors"
                       >
                         {lang === "fr" ? "Voir détail" : "View detail"}
                       </Link>

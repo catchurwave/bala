@@ -165,17 +165,11 @@ export default async function CheckoutSuccessPage({
         </div>
 
         {/* CTA */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link
-            href={`/${lang}/galerie`}
-            className="text-center bg-[#2C2A27] text-[#F7F2E8] text-xs tracking-widest uppercase px-8 py-4 hover:bg-[#C8A96E] transition-colors"
-          >
+        <div className="flex flex-col sm:flex-row gap-5 justify-center">
+          <Link href={`/${lang}/galerie`} className="btn-primary text-center">
             {isFr ? "Retour à la galerie" : "Back to gallery"}
           </Link>
-          <Link
-            href={`/${lang}/contact`}
-            className="text-center border border-[#D4C9B6] text-[#6B6560] text-xs tracking-widest uppercase px-8 py-4 hover:border-[#C8A96E] hover:text-[#C8A96E] transition-colors"
-          >
+          <Link href={`/${lang}/contact`} className="btn-outline text-center">
             {isFr ? "Nous contacter" : "Contact us"}
           </Link>
         </div>

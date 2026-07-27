@@ -53,7 +53,7 @@ export default function Reassurance({
       <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 lg:grid-cols-4 gap-8">
         {list.map(({ icon, title, desc }) => (
           <div key={title} className="flex flex-col items-center text-center gap-3">
-            <div className={isDark ? "text-[#C8A96E]" : "text-[#4A6741]"}>
+            <div className={isDark ? "text-[#C8A96E]" : "text-[#C96844]"}>
               {icons[icon]}
             </div>
             <h3 className={`text-sm font-medium tracking-wide ${isDark ? "text-[#D4C9B6]" : "text-[#2C2A27]"}`}>

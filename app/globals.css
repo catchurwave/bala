@@ -8,6 +8,10 @@
   --color-parchment: #FAF6EE;
   --color-ochre: #C8A96E;
   --color-ochre-dark: #A88748;
+  /* Terracotta — from logo dancer's dress */
+  --color-terra: #C96844;
+  --color-terra-dark: #A85535;
+  --color-terra-shadow: #7A3A20;
   --color-forest: #4A6741;
   --color-forest-dark: #324828;
   --color-sky: #7BA3B8;
@@ -154,11 +158,88 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   width: 40px;
   height: 2px;
-  background: var(--color-ochre);
+  background: var(--color-terra);
   opacity: 0;
   transition: opacity 0.3s ease, width 0.3s ease;
 }
 .card-accent:hover::after {
   opacity: 1;
   width: 100%;
+}
+
+/* ── Buttons — style atelier (tampon artisan) ─────────────────── */
+/*
+   Primary: fond terracotta + ombre offset solide qui s'enfonce au clic.
+   Évoque un tampon de bois, un cachet d'atelier.
+*/
+.btn-primary {
+  display: inline-block;
+  background-color: var(--color-terra);
+  color: #F7F2E8;
+  font-size: 0.7rem;
+  font-family: var(--font-sans);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.875rem 2rem;
+  border: none;
+  box-shadow: 3px 3px 0 var(--color-terra-shadow);
+  transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-primary:hover {
+  background-color: var(--color-terra-dark);
+  box-shadow: 1px 1px 0 var(--color-terra-shadow);
+  transform: translate(2px, 2px);
+}
+.btn-primary:active {
+  box-shadow: none;
+  transform: translate(3px, 3px);
+}
+.btn-primary:disabled,
+.btn-primary[disabled] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 3px 3px 0 var(--color-terra-shadow);
+}
+
+/* Outline variant */
+.btn-outline {
+  display: inline-block;
+  background: transparent;
+  color: var(--color-terra);
+  font-size: 0.7rem;
+  font-family: var(--font-sans);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.875rem 2rem;
+  border: 1.5px solid var(--color-terra);
+  box-shadow: 3px 3px 0 rgba(201,104,68,0.25);
+  transition: all 0.15s ease;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-outline:hover {
+  background-color: var(--color-terra);
+  color: #F7F2E8;
+  box-shadow: 1px 1px 0 rgba(201,104,68,0.4);
+  transform: translate(2px, 2px);
+}
+.btn-outline:active {
+  box-shadow: none;
+  transform: translate(3px, 3px);
+}
+
+/* Small variant */
+.btn-sm {
+  padding: 0.5rem 1.25rem;
+  font-size: 0.65rem;
+}
+
+/* Painting card warm shadow on hover */
+.painting-card:hover {
+  box-shadow: 0 20px 40px rgba(201,104,68,0.10), 0 6px 16px rgba(44,42,39,0.10);
 }

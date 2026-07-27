@@ -82,7 +82,7 @@ export default function OeuvreCard({
       </div>
 
       <div className="mt-4 px-1">
-        <h3 className="font-serif text-xl text-[#2C2A27] group-hover:text-[#C8A96E] transition-colors">
+        <h3 className="font-serif text-xl text-[#2C2A27] group-hover:text-[#C96844] transition-colors">
           {titre}
         </h3>
         <div className="flex items-center justify-between mt-1">

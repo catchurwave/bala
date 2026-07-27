@@ -82,17 +82,11 @@ export default async function HomePage({
             &ldquo;{quote}&rdquo;
           </blockquote>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href={`/${lang}/galerie`}
-              className="px-8 py-3.5 bg-[#2C2A27] text-[#F7F2E8] text-sm tracking-widest uppercase hover:bg-[#C8A96E] transition-colors duration-300"
-            >
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
+            <Link href={`/${lang}/galerie`} className="btn-primary">
               {dict.home.hero_cta_gallery}
             </Link>
-            <Link
-              href={`/${lang}/boutique`}
-              className="px-8 py-3.5 border border-[#2C2A27] text-[#2C2A27] text-sm tracking-widest uppercase hover:border-[#C8A96E] hover:text-[#C8A96E] transition-colors duration-300"
-            >
+            <Link href={`/${lang}/boutique`} className="btn-outline">
               {dict.home.hero_cta_shop}
             </Link>
           </div>
@@ -173,10 +167,7 @@ export default async function HomePage({
                 ? (bio.tagline_desc_fr || "Entre impressionnisme et expressionnisme, entre villes chatoyantes et paysages lumineux, Bala peint avec une liberté et une couleur qui lui sont propres.")
                 : (bio.tagline_desc_en || "Between Impressionism and Expressionism, between vibrant cities and luminous landscapes, Bala paints with a freedom and color that are uniquely his own.")}
             </p>
-            <Link
-              href={`/${lang}/artiste`}
-              className="inline-block border border-[#C8A96E] text-[#C8A96E] text-sm tracking-widest uppercase px-6 py-3 hover:bg-[#C8A96E] hover:text-[#2C2A27] transition-all"
-            >
+            <Link href={`/${lang}/artiste`} className="btn-outline">
               {lang === "fr" ? "En savoir plus" : "Learn more"}
             </Link>
           </div>
@@ -244,10 +235,7 @@ export default async function HomePage({
               ? (bio.boutique_desc_fr || "Chaque tableau est une œuvre originale, peinte à la main. Livraison soigneuse, certificat d'authenticité signé par l'artiste inclus.")
               : (bio.boutique_desc_en || "Each painting is an original work, painted by hand. Careful delivery, certificate of authenticity hand-signed by the artist included.")}
           </p>
-          <Link
-            href={`/${lang}/boutique`}
-            className="inline-block bg-[#C8A96E] text-[#F7F2E8] text-sm tracking-widest uppercase px-10 py-4 hover:bg-[#A88748] transition-colors"
-          >
+          <Link href={`/${lang}/boutique`} className="btn-primary">
             {dict.home.hero_cta_shop}
           </Link>
         </div>

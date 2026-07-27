@@ -76,7 +76,8 @@ export default function Footer({
             </p>
             <Link
               href={`/${lang}/contact`}
-              className="inline-block text-sm border border-[#C8A96E] text-[#C8A96E] px-5 py-2.5 hover:bg-[#C8A96E] hover:text-[#2C2A27] transition-all"
+              className="btn-outline btn-sm"
+              style={{ borderColor: "#C8A96E", color: "#C8A96E", boxShadow: "3px 3px 0 rgba(200,169,110,0.3)" }}
             >
               {lang === "fr" ? "Contacter l'artiste" : "Contact the artist"}
             </Link>

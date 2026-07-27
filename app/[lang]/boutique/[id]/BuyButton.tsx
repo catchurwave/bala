@@ -18,7 +18,8 @@ export default function BuyButton({
   return (
     <button
       onClick={() => router.push(`/${lang}/checkout?slug=${slug}`)}
-      className="w-full bg-[#2C2A27] text-[#F7F2E8] text-sm tracking-widest uppercase py-4 hover:bg-[#C8A96E] transition-colors duration-300"
+      className="btn-primary w-full text-center"
+      style={{ padding: "1rem 2rem" }}
     >
       {label}
     </button>

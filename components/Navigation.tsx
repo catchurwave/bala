@@ -107,7 +107,8 @@ export default function Navigation({
           {/* Lang switcher */}
           <Link
             href={otherPath}
-            className="text-xs tracking-widest uppercase border border-[#C8A96E] text-[#C8A96E] px-3 py-1 hover:bg-[#C8A96E] hover:text-[#F7F2E8] transition-all"
+            className="btn-outline btn-sm"
+            style={{ padding: "0.35rem 0.75rem", fontSize: "0.6rem" }}
           >
             {otherLang.toUpperCase()}
           </Link>

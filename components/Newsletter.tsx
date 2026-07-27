@@ -68,9 +68,9 @@ export default function Newsletter({ lang }: { lang: string }) {
             <button
               type="submit"
               disabled={status === "loading"}
-              className="bg-[#2C2A27] text-[#F7F2E8] text-xs tracking-widest uppercase px-6 py-3 hover:bg-[#C8A96E] transition-colors disabled:opacity-60 whitespace-nowrap"
+              className="btn-primary btn-sm"
             >
-              {status === "loading" ? "..." : t.cta}
+              {status === "loading" ? "…" : t.cta}
             </button>
           </form>
         )}

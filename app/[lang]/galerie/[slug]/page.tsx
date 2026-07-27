@@ -93,10 +93,7 @@ export default async function OeuvreGaleriePage({
                   </span>
                 </div>
                 {oeuvre.disponible && (
-                  <Link
-                    href={`/${lang}/boutique/${oeuvre.slug}`}
-                    className="block text-center bg-[#C8A96E] text-[#F7F2E8] text-sm tracking-widest uppercase px-8 py-3 hover:bg-[#A88748] transition-colors"
-                  >
+                  <Link href={`/${lang}/boutique/${oeuvre.slug}`} className="btn-primary block text-center">
                     {lang === "fr" ? "Acquérir cette œuvre" : "Acquire this work"} →
                   </Link>
                 )}
