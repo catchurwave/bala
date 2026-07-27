@@ -116,7 +116,7 @@ export default function Navigation({
 
         {/* Mobile hamburger — 3 coups de pinceau */}
         <button
-          className="md:hidden text-[#2C2A27] hover:text-[#C96844] transition-colors duration-200 p-2"
+          className="md:hidden text-[#C96844] hover:text-[#A85535] transition-colors duration-200 p-2"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Menu"
         >
