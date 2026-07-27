@@ -6,7 +6,7 @@ import { dbGetFeatured, dbGetBio } from "@/lib/db";
 import OeuvreCard from "@/components/OeuvreCard";
 import Reassurance from "@/components/Reassurance";
 import Newsletter from "@/components/Newsletter";
-import { BrushStroke, Diamond, SectionHeader } from "@/components/Ornament";
+import { BrushStroke, Diamond, SectionHeader, ZigzagDivider } from "@/components/Ornament";
 
 export const dynamic = "force-dynamic";
 
@@ -101,7 +101,7 @@ export default async function HomePage({
       </section>
 
       {/* ── SECTION DIVIDER ──────────────────────────────────────── */}
-      <div className="watercolor-divider mx-auto max-w-2xl my-0 opacity-60" />
+      <ZigzagDivider className="max-w-2xl mx-auto my-0" />
 
       {/* ── FEATURED WORKS ──────────────────────────────────────── */}
       {featured.length > 0 && (
@@ -133,7 +133,7 @@ export default async function HomePage({
       )}
 
       {/* ── SECTION DIVIDER ──────────────────────────────────────── */}
-      <div className="watercolor-divider mx-auto max-w-2xl opacity-60" />
+      <ZigzagDivider className="max-w-2xl mx-auto" />
 
       {/* ── ABOUT STRIP ─────────────────────────────────────────── */}
       <section className="bg-[#2C2A27] py-24 px-6 relative overflow-hidden">

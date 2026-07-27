@@ -167,70 +167,73 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
 }
 
-/* ── Buttons — style atelier (tampon artisan) ─────────────────── */
+/* ── Buttons — coup de peinture (brushstroke shape) ─────────────── */
 /*
-   Primary: fond terracotta + ombre offset solide qui s'enfonce au clic.
-   Évoque un tampon de bois, un cachet d'atelier.
+   SVG brushstroke shape as background — tapers at ends, slightly organic.
+   drop-shadow follows contour, not the CSS box.
 */
 .btn-primary {
   display: inline-block;
-  background-color: var(--color-terra);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 204 52'%3E%3Cpath d='M8,26 C8,15 24,10 52,10 C88,8 128,10 160,10 C180,11 196,17 196,26 C196,36 178,42 156,42 C120,44 84,42 52,42 C24,41 8,37 8,26Z' fill='%23C96844'/%3E%3C/svg%3E");
+  background-size: 100% 100%;
+  background-color: transparent;
   color: #F7F2E8;
   font-size: 0.7rem;
   font-family: var(--font-sans);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  padding: 0.875rem 2rem;
+  padding: 0.875rem 2.25rem;
   border: none;
-  box-shadow: 3px 3px 0 var(--color-terra-shadow);
-  transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  box-shadow: none;
+  filter: drop-shadow(2px 3px 0 rgba(122,58,32,0.45));
+  transition: filter 0.15s ease, transform 0.15s ease;
   cursor: pointer;
   text-decoration: none;
   white-space: nowrap;
 }
 .btn-primary:hover {
-  background-color: var(--color-terra-dark);
-  box-shadow: 1px 1px 0 var(--color-terra-shadow);
-  transform: translate(2px, 2px);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 204 52'%3E%3Cpath d='M8,26 C8,15 24,10 52,10 C88,8 128,10 160,10 C180,11 196,17 196,26 C196,36 178,42 156,42 C120,44 84,42 52,42 C24,41 8,37 8,26Z' fill='%23A85535'/%3E%3C/svg%3E");
+  filter: drop-shadow(1px 1px 0 rgba(122,58,32,0.45));
+  transform: translate(1px, 2px);
 }
 .btn-primary:active {
-  box-shadow: none;
-  transform: translate(3px, 3px);
+  filter: none;
+  transform: translate(2px, 3px);
 }
 .btn-primary:disabled,
 .btn-primary[disabled] {
   opacity: 0.55;
   cursor: not-allowed;
   transform: none;
-  box-shadow: 3px 3px 0 var(--color-terra-shadow);
+  filter: none;
 }
 
 /* Outline variant */
 .btn-outline {
   display: inline-block;
-  background: transparent;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 204 52'%3E%3Cpath d='M8,26 C8,15 24,10 52,10 C88,8 128,10 160,10 C180,11 196,17 196,26 C196,36 178,42 156,42 C120,44 84,42 52,42 C24,41 8,37 8,26Z' fill='none' stroke='%23C96844' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-size: 100% 100%;
+  background-color: transparent;
   color: var(--color-terra);
   font-size: 0.7rem;
   font-family: var(--font-sans);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  padding: 0.875rem 2rem;
-  border: 1.5px solid var(--color-terra);
-  box-shadow: 3px 3px 0 rgba(201,104,68,0.25);
-  transition: all 0.15s ease;
+  padding: 0.875rem 2.25rem;
+  border: none;
+  box-shadow: none;
+  transition: color 0.15s ease, transform 0.15s ease;
   cursor: pointer;
   text-decoration: none;
   white-space: nowrap;
 }
 .btn-outline:hover {
-  background-color: var(--color-terra);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 204 52'%3E%3Cpath d='M8,26 C8,15 24,10 52,10 C88,8 128,10 160,10 C180,11 196,17 196,26 C196,36 178,42 156,42 C120,44 84,42 52,42 C24,41 8,37 8,26Z' fill='%23C96844'/%3E%3C/svg%3E");
   color: #F7F2E8;
-  box-shadow: 1px 1px 0 rgba(201,104,68,0.4);
-  transform: translate(2px, 2px);
+  transform: translate(1px, 2px);
 }
 .btn-outline:active {
-  box-shadow: none;
-  transform: translate(3px, 3px);
+  transform: translate(2px, 3px);
 }
 
 /* Small variant */

@@ -1,4 +1,43 @@
-// Decorative impressionist ornament elements for section headings and dividers
+// Decorative impressionist ornament elements — section headings, dividers, zigzag
+
+export function ZigzagDivider({
+  className = "",
+  color = "#C8A96E",
+}: {
+  className?: string;
+  color?: string;
+}) {
+  const path =
+    "M0,14 L18,3 L36,13 L54,2 L72,14 L90,4 L108,13 L124,2 L142,14 L160,3 L178,13 L196,4 L212,14 L230,3 L248,13 L264,2 L282,14 L300,4 L318,13 L336,3 L354,14 L372,4 L390,12 L408,3 L426,14 L444,4 L462,13 L480,2 L498,14 L516,4 L534,13 L552,3 L570,14 L588,4 L606,12 L622,3 L640,14 L658,4 L676,13 L694,2 L712,14 L730,4 L748,13 L764,3 L782,14 L800,4";
+  return (
+    <div className={`w-full overflow-hidden ${className}`} aria-hidden="true">
+      <svg
+        viewBox="0 0 800 18"
+        preserveAspectRatio="none"
+        className="w-full h-[18px]"
+        fill="none"
+      >
+        <path
+          d={path}
+          stroke={color}
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          opacity="0.45"
+        />
+        <path
+          d={path}
+          stroke={color}
+          strokeWidth="0.7"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          opacity="0.18"
+          transform="translate(0,2)"
+        />
+      </svg>
+    </div>
+  );
+}
 
 export function BrushStroke({
   className = "",
