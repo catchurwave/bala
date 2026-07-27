@@ -31,7 +31,7 @@ export default async function HomePage({
   return (
     <>
       {/* ── HERO ─────────────────────────────────────────────── */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen flex flex-col items-center justify-start pt-24 md:pt-28 overflow-hidden">
         <div
           className="absolute inset-0"
           style={{
