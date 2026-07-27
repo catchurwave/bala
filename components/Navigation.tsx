@@ -49,6 +49,8 @@ export default function Navigation({
   const isActive = (href: string) =>
     pathname === href || (href !== `/${lang}` && pathname.startsWith(href));
 
+  const isHome = pathname === `/${lang}`;
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -58,14 +60,19 @@ export default function Navigation({
       }`}
     >
       <nav className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        {/* Logo */}
-        <Link href={`/${lang}`} className="shrink-0 hover:opacity-85 transition-opacity">
+        {/* Logo — hidden on homepage, shown on all other pages */}
+        <Link
+          href={`/${lang}`}
+          className={`shrink-0 hover:opacity-85 transition-opacity ${isHome ? "invisible pointer-events-none" : ""}`}
+          tabIndex={isHome ? -1 : undefined}
+          aria-hidden={isHome}
+        >
           <Image
             src="/logo-atelier.png"
             alt={artistName}
-            width={180}
-            height={60}
-            className="h-12 w-auto object-contain"
+            width={210}
+            height={70}
+            className="h-14 w-auto object-contain"
             priority
           />
         </Link>

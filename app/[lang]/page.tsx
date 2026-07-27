@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { getDictionary, hasLocale } from "@/lib/dictionaries";
 import { notFound } from "next/navigation";
 import { dbGetFeatured, dbGetBio } from "@/lib/db";
@@ -57,14 +58,21 @@ export default async function HomePage({
             <Diamond color="#C8A96E" />
           </div>
 
-          <p className="text-xs tracking-[0.35em] uppercase text-[#C8A96E] mb-6">
+          <p className="text-xs tracking-[0.35em] uppercase text-[#C8A96E] mb-8">
             {dict.home.hero_subtitle}
           </p>
 
-          <h1 className="font-serif text-6xl md:text-8xl lg:text-9xl text-[#2C2A27] leading-none mb-4 font-light">
-            <span className="italic">{artistPrenom}</span>{" "}
-            <span className="font-normal">{artistNom}</span>
-          </h1>
+          <h1 className="sr-only">{`${artistPrenom} ${artistNom} — L'atelier de Bala`}</h1>
+          <div className="flex justify-center mb-6">
+            <Image
+              src="/logo-atelier.png"
+              alt={`L'atelier de Bala — ${artistPrenom} ${artistNom}`}
+              width={520}
+              height={174}
+              className="w-[320px] sm:w-[420px] md:w-[520px] h-auto object-contain drop-shadow-sm"
+              priority
+            />
+          </div>
 
           <div className="flex justify-center mb-8">
             <BrushStroke width={220} />
