@@ -177,6 +177,8 @@ h1, h2, h3, h4, h5, h6 {
 /* Bristle trails at x=0–2, pointed left, full coverage right */
 .btn-primary {
   display: inline-block;
+  position: relative;
+  overflow: hidden;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 52'%3E%3Cpath d='M2,26 L0,21' stroke='%23C96844' stroke-width='2' stroke-linecap='round' fill='none' opacity='0.5'/%3E%3Cpath d='M2,26 L0,31' stroke='%23C96844' stroke-width='1.5' stroke-linecap='round' fill='none' opacity='0.3'/%3E%3Cpath d='M2,26 C4,15 18,9 46,9 C88,7 132,7 176,9 C198,10 217,16 218,26 C218,36 200,43 176,43 C132,43 88,43 46,43 C18,43 4,37 2,26Z' fill='%23C96844'/%3E%3C/svg%3E");
   background-size: 100% 100%;
   background-color: transparent;
@@ -193,6 +195,29 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer;
   text-decoration: none;
   white-space: nowrap;
+}
+/* Glint: reflet de peinture mouillée qui traverse L→R au hover */
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255,255,255,0.12) 45%,
+    rgba(255,255,255,0.22) 50%,
+    rgba(255,255,255,0.12) 55%,
+    transparent 100%
+  );
+  transform: skewX(-18deg);
+  transition: left 0.55s ease;
+  pointer-events: none;
+}
+.btn-primary:hover::after {
+  left: 130%;
 }
 .btn-primary:hover {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 52'%3E%3Cpath d='M2,26 L0,21' stroke='%23A85535' stroke-width='2' stroke-linecap='round' fill='none' opacity='0.5'/%3E%3Cpath d='M2,26 L0,31' stroke='%23A85535' stroke-width='1.5' stroke-linecap='round' fill='none' opacity='0.3'/%3E%3Cpath d='M2,26 C4,15 18,9 46,9 C88,7 132,7 176,9 C198,10 217,16 218,26 C218,36 200,43 176,43 C132,43 88,43 46,43 C18,43 4,37 2,26Z' fill='%23A85535'/%3E%3C/svg%3E");
@@ -214,6 +239,8 @@ h1, h2, h3, h4, h5, h6 {
 /* Outline variant — stroke-only brushstroke, fills on hover */
 .btn-outline {
   display: inline-block;
+  position: relative;
+  overflow: hidden;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 52'%3E%3Cpath d='M2,26 L0,21' stroke='%23C96844' stroke-width='1.5' stroke-linecap='round' fill='none' opacity='0.45'/%3E%3Cpath d='M2,26 L0,31' stroke='%23C96844' stroke-width='1' stroke-linecap='round' fill='none' opacity='0.28'/%3E%3Cpath d='M2,26 C4,15 18,9 46,9 C88,7 132,7 176,9 C198,10 217,16 218,26 C218,36 200,43 176,43 C132,43 88,43 46,43 C18,43 4,37 2,26Z' fill='none' stroke='%23C96844' stroke-width='1.5'/%3E%3C/svg%3E");
   background-size: 100% 100%;
   background-color: transparent;
@@ -229,6 +256,28 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer;
   text-decoration: none;
   white-space: nowrap;
+}
+.btn-outline::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255,255,255,0.12) 45%,
+    rgba(255,255,255,0.22) 50%,
+    rgba(255,255,255,0.12) 55%,
+    transparent 100%
+  );
+  transform: skewX(-18deg);
+  transition: left 0.55s ease;
+  pointer-events: none;
+}
+.btn-outline:hover::after {
+  left: 130%;
 }
 .btn-outline:hover {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 52'%3E%3Cpath d='M2,26 L0,21' stroke='%23C96844' stroke-width='2' stroke-linecap='round' fill='none' opacity='0.5'/%3E%3Cpath d='M2,26 L0,31' stroke='%23C96844' stroke-width='1.5' stroke-linecap='round' fill='none' opacity='0.3'/%3E%3Cpath d='M2,26 C4,15 18,9 46,9 C88,7 132,7 176,9 C198,10 217,16 218,26 C218,36 200,43 176,43 C132,43 88,43 46,43 C18,43 4,37 2,26Z' fill='%23C96844'/%3E%3C/svg%3E");
