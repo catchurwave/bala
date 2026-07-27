@@ -6,7 +6,7 @@ import { dbGetFeatured, dbGetBio } from "@/lib/db";
 import OeuvreCard from "@/components/OeuvreCard";
 import Reassurance from "@/components/Reassurance";
 import Newsletter from "@/components/Newsletter";
-import { BrushStroke, Diamond, SectionHeader, ZigzagDivider } from "@/components/Ornament";
+import { BrushStroke, Diamond, SectionHeader, WaveDivider } from "@/components/Ornament";
 
 export const dynamic = "force-dynamic";
 
@@ -100,9 +100,6 @@ export default async function HomePage({
         </div>
       </section>
 
-      {/* ── SECTION DIVIDER ──────────────────────────────────────── */}
-      <ZigzagDivider className="max-w-2xl mx-auto my-0" />
-
       {/* ── FEATURED WORKS ──────────────────────────────────────── */}
       {featured.length > 0 && (
         <section className="py-24 px-6 atelier-section">
@@ -132,8 +129,8 @@ export default async function HomePage({
         </section>
       )}
 
-      {/* ── SECTION DIVIDER ──────────────────────────────────────── */}
-      <ZigzagDivider className="max-w-2xl mx-auto" />
+      {/* ── WAVE: cream → charcoal ───────────────────────────────── */}
+      <WaveDivider fromColor="#F7F2E8" toColor="#2C2A27" />
 
       {/* ── ABOUT STRIP ─────────────────────────────────────────── */}
       <section className="bg-[#2C2A27] py-24 px-6 relative overflow-hidden">
@@ -203,9 +200,11 @@ export default async function HomePage({
         </div>
       </section>
 
+      {/* ── WAVE: charcoal → parchment ───────────────────────────── */}
+      <WaveDivider fromColor="#2C2A27" toColor="#FAF6EE" />
+
       {/* ── BOUTIQUE CTA ────────────────────────────────────────── */}
       <section className="py-24 px-6 linen-bg relative overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 watercolor-divider opacity-40" />
 
         {/* Decorative corner brush strokes */}
         <div className="absolute top-12 left-0 opacity-15 -rotate-12">
@@ -239,7 +238,6 @@ export default async function HomePage({
             {dict.home.hero_cta_shop}
           </Link>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 watercolor-divider opacity-40" />
       </section>
 
       {/* ── REASSURANCE ─────────────────────────────────────────── */}

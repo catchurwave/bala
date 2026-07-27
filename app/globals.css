@@ -167,14 +167,17 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
 }
 
-/* ── Buttons — coup de peinture (brushstroke shape) ─────────────── */
+/* ── Buttons — coup de pinceau (L→R, traînée à gauche) ──────────── */
 /*
-   SVG brushstroke shape as background — tapers at ends, slightly organic.
-   drop-shadow follows contour, not the CSS box.
+   Brushstroke going left→right: pointed/feathered left end (bristle trails),
+   full body, slightly tapered right. drop-shadow follows the organic shape.
 */
+
+/* Primary brushstroke SVG — terracotta fill, pointed left + bristle trails */
+/* viewBox="-8 0 216 52" gives space for the bristle trails beyond x=0       */
 .btn-primary {
   display: inline-block;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 204 52'%3E%3Cpath d='M8,26 C8,15 24,10 52,10 C88,8 128,10 160,10 C180,11 196,17 196,26 C196,36 178,42 156,42 C120,44 84,42 52,42 C24,41 8,37 8,26Z' fill='%23C96844'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-8 0 216 52'%3E%3Cpath d='M-6,23 C-2,24 2,25 6,26' stroke='%23C96844' stroke-width='2.5' stroke-linecap='round' fill='none' opacity='0.5'/%3E%3Cpath d='M-7,29 C-3,28 1,27 5,26' stroke='%23C96844' stroke-width='1.5' stroke-linecap='round' fill='none' opacity='0.3'/%3E%3Cpath d='M6,26 C8,18 22,12 48,11 C84,9 124,9 160,10 C182,11 198,17 200,26 C202,33 198,40 186,41 C168,43 148,43 124,43 C88,43 52,42 28,41 C10,40 6,34 6,26Z' fill='%23C96844'/%3E%3C/svg%3E");
   background-size: 100% 100%;
   background-color: transparent;
   color: #F7F2E8;
@@ -182,18 +185,18 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-sans);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  padding: 0.875rem 2.25rem;
+  padding: 0.875rem 2.5rem 0.875rem 2rem;
   border: none;
   box-shadow: none;
-  filter: drop-shadow(2px 3px 0 rgba(122,58,32,0.45));
+  filter: drop-shadow(2px 3px 0 rgba(122,58,32,0.4));
   transition: filter 0.15s ease, transform 0.15s ease;
   cursor: pointer;
   text-decoration: none;
   white-space: nowrap;
 }
 .btn-primary:hover {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 204 52'%3E%3Cpath d='M8,26 C8,15 24,10 52,10 C88,8 128,10 160,10 C180,11 196,17 196,26 C196,36 178,42 156,42 C120,44 84,42 52,42 C24,41 8,37 8,26Z' fill='%23A85535'/%3E%3C/svg%3E");
-  filter: drop-shadow(1px 1px 0 rgba(122,58,32,0.45));
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-8 0 216 52'%3E%3Cpath d='M-6,23 C-2,24 2,25 6,26' stroke='%23A85535' stroke-width='2.5' stroke-linecap='round' fill='none' opacity='0.5'/%3E%3Cpath d='M-7,29 C-3,28 1,27 5,26' stroke='%23A85535' stroke-width='1.5' stroke-linecap='round' fill='none' opacity='0.3'/%3E%3Cpath d='M6,26 C8,18 22,12 48,11 C84,9 124,9 160,10 C182,11 198,17 200,26 C202,33 198,40 186,41 C168,43 148,43 124,43 C88,43 52,42 28,41 C10,40 6,34 6,26Z' fill='%23A85535'/%3E%3C/svg%3E");
+  filter: drop-shadow(1px 1px 0 rgba(122,58,32,0.4));
   transform: translate(1px, 2px);
 }
 .btn-primary:active {
@@ -208,10 +211,10 @@ h1, h2, h3, h4, h5, h6 {
   filter: none;
 }
 
-/* Outline variant */
+/* Outline variant — stroke-only brushstroke, fills on hover */
 .btn-outline {
   display: inline-block;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 204 52'%3E%3Cpath d='M8,26 C8,15 24,10 52,10 C88,8 128,10 160,10 C180,11 196,17 196,26 C196,36 178,42 156,42 C120,44 84,42 52,42 C24,41 8,37 8,26Z' fill='none' stroke='%23C96844' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-8 0 216 52'%3E%3Cpath d='M-6,23 C-2,24 2,25 6,26' stroke='%23C96844' stroke-width='1.5' stroke-linecap='round' fill='none' opacity='0.45'/%3E%3Cpath d='M-7,29 C-3,28 1,27 5,26' stroke='%23C96844' stroke-width='1' stroke-linecap='round' fill='none' opacity='0.28'/%3E%3Cpath d='M6,26 C8,18 22,12 48,11 C84,9 124,9 160,10 C182,11 198,17 200,26 C202,33 198,40 186,41 C168,43 148,43 124,43 C88,43 52,42 28,41 C10,40 6,34 6,26Z' fill='none' stroke='%23C96844' stroke-width='1.5'/%3E%3C/svg%3E");
   background-size: 100% 100%;
   background-color: transparent;
   color: var(--color-terra);
@@ -219,7 +222,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-sans);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  padding: 0.875rem 2.25rem;
+  padding: 0.875rem 2.5rem 0.875rem 2rem;
   border: none;
   box-shadow: none;
   transition: color 0.15s ease, transform 0.15s ease;
@@ -228,7 +231,7 @@ h1, h2, h3, h4, h5, h6 {
   white-space: nowrap;
 }
 .btn-outline:hover {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 204 52'%3E%3Cpath d='M8,26 C8,15 24,10 52,10 C88,8 128,10 160,10 C180,11 196,17 196,26 C196,36 178,42 156,42 C120,44 84,42 52,42 C24,41 8,37 8,26Z' fill='%23C96844'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-8 0 216 52'%3E%3Cpath d='M-6,23 C-2,24 2,25 6,26' stroke='%23C96844' stroke-width='2.5' stroke-linecap='round' fill='none' opacity='0.5'/%3E%3Cpath d='M-7,29 C-3,28 1,27 5,26' stroke='%23C96844' stroke-width='1.5' stroke-linecap='round' fill='none' opacity='0.3'/%3E%3Cpath d='M6,26 C8,18 22,12 48,11 C84,9 124,9 160,10 C182,11 198,17 200,26 C202,33 198,40 186,41 C168,43 148,43 124,43 C88,43 52,42 28,41 C10,40 6,34 6,26Z' fill='%23C96844'/%3E%3C/svg%3E");
   color: #F7F2E8;
   transform: translate(1px, 2px);
 }
@@ -238,7 +241,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Small variant */
 .btn-sm {
-  padding: 0.5rem 1.25rem;
+  padding: 0.5rem 1.5rem 0.5rem 1rem;
   font-size: 0.65rem;
 }
 

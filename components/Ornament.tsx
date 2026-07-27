@@ -1,39 +1,29 @@
-// Decorative impressionist ornament elements — section headings, dividers, zigzag
+// Decorative impressionist ornament elements — section headings, wave dividers
 
-export function ZigzagDivider({
+export function WaveDivider({
+  fromColor,
+  toColor,
   className = "",
-  color = "#C8A96E",
 }: {
+  fromColor: string;
+  toColor: string;
   className?: string;
-  color?: string;
 }) {
-  const path =
-    "M0,14 L18,3 L36,13 L54,2 L72,14 L90,4 L108,13 L124,2 L142,14 L160,3 L178,13 L196,4 L212,14 L230,3 L248,13 L264,2 L282,14 L300,4 L318,13 L336,3 L354,14 L372,4 L390,12 L408,3 L426,14 L444,4 L462,13 L480,2 L498,14 L516,4 L534,13 L552,3 L570,14 L588,4 L606,12 L622,3 L640,14 L658,4 L676,13 L694,2 L712,14 L730,4 L748,13 L764,3 L782,14 L800,4";
   return (
-    <div className={`w-full overflow-hidden ${className}`} aria-hidden="true">
+    <div
+      className={`relative overflow-hidden ${className}`}
+      style={{ height: 72 }}
+      aria-hidden="true"
+    >
+      <div className="absolute inset-0" style={{ backgroundColor: toColor }} />
       <svg
-        viewBox="0 0 800 18"
+        viewBox="0 0 1440 72"
         preserveAspectRatio="none"
-        className="w-full h-[18px]"
-        fill="none"
+        className="absolute inset-0 w-full h-full"
+        fill={fromColor}
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <path
-          d={path}
-          stroke={color}
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          opacity="0.45"
-        />
-        <path
-          d={path}
-          stroke={color}
-          strokeWidth="0.7"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          opacity="0.18"
-          transform="translate(0,2)"
-        />
+        <path d="M0,0 L0,42 C200,68 440,14 720,44 C1000,74 1240,16 1440,40 L1440,0 Z" />
       </svg>
     </div>
   );
