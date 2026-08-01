@@ -1,9 +1,10 @@
 import { hasLocale } from "@/lib/dictionaries";
-import { dbGetOeuvre } from "@/lib/db";
+import { dbGetOeuvre, dbGetAllOeuvres } from "@/lib/db";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import ImageLightbox from "@/components/ImageLightbox";
 import SizeVisualizer from "@/components/SizeVisualizer";
+import OeuvresCarousel from "@/components/OeuvresCarousel";
 
 export const dynamic = "force-dynamic";
 
@@ -15,8 +16,13 @@ export default async function OeuvreGaleriePage({
   const { lang, slug } = await params;
   if (!hasLocale(lang)) notFound();
 
-  const oeuvre = await dbGetOeuvre(slug);
+  const [oeuvre, allOeuvres] = await Promise.all([
+    dbGetOeuvre(slug),
+    dbGetAllOeuvres(),
+  ]);
   if (!oeuvre) notFound();
+
+  const autresOeuvres = allOeuvres.filter((o) => o.slug !== slug).slice(0, 10);
 
   const titre = lang === "fr" ? oeuvre.titre : oeuvre.titre_en;
   const description = lang === "fr" ? oeuvre.description : oeuvre.description_en;
@@ -111,6 +117,12 @@ export default async function OeuvreGaleriePage({
           </div>
         </div>
       </div>
+
+      <OeuvresCarousel
+        oeuvres={autresOeuvres}
+        lang={lang}
+        title={lang === "fr" ? "Autres œuvres" : "More works"}
+      />
     </div>
   );
 }

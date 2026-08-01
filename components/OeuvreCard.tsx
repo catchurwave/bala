@@ -33,15 +33,15 @@ export default function OeuvreCard({
     : `/${lang}/galerie/${oeuvre.slug}`;
 
   return (
-    <Link href={href} className="group painting-card block">
+    <Link href={href} className="group painting-card block bg-[#FDFAF5] shadow-[0_4px_24px_rgba(44,42,39,0.09)] p-4 hover:shadow-[0_12px_40px_rgba(44,42,39,0.15)]">
       <div className="frame">
-        <div className="relative aspect-[4/3] overflow-hidden bg-[#EDE5D4]">
+        <div className="relative aspect-[4/3] overflow-hidden bg-[#F7F2E8]">
           {oeuvre.image ? (
             <Image
               src={oeuvre.image}
               alt={titre}
               fill
-              className="object-cover group-hover:scale-105 transition-transform duration-500"
+              className="object-contain group-hover:scale-105 transition-transform duration-500"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           ) : (
@@ -81,7 +81,7 @@ export default function OeuvreCard({
         </div>
       </div>
 
-      <div className="mt-4 px-1">
+      <div className="mt-4 px-1 pb-1">
         <h3 className="font-serif text-xl text-[#2C2A27] group-hover:text-[#C96844] transition-colors">
           {titre}
         </h3>

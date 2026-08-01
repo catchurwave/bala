@@ -1,9 +1,10 @@
 import { getDictionary, hasLocale } from "@/lib/dictionaries";
-import { dbGetOeuvre } from "@/lib/db";
+import { dbGetOeuvre, dbGetAVendre } from "@/lib/db";
 import { notFound } from "next/navigation";
 import BuyButton from "./BuyButton";
 import ImageLightbox from "@/components/ImageLightbox";
 import SizeVisualizer from "@/components/SizeVisualizer";
+import OeuvresCarousel from "@/components/OeuvresCarousel";
 
 export const dynamic = "force-dynamic";
 
@@ -15,10 +16,14 @@ export default async function OeuvrePage({
   const { lang, id } = await params;
   if (!hasLocale(lang)) notFound();
 
-  const oeuvre = await dbGetOeuvre(id);
+  const [oeuvre, aVendre, dict] = await Promise.all([
+    dbGetOeuvre(id),
+    dbGetAVendre(),
+    getDictionary(lang),
+  ]);
   if (!oeuvre || oeuvre.prix == null) notFound();
 
-  const dict = await getDictionary(lang);
+  const autresOeuvres = aVendre.filter((o) => o.slug !== id).slice(0, 10);
   const titre = lang === "fr" ? oeuvre.titre : oeuvre.titre_en;
   const description = lang === "fr" ? oeuvre.description : oeuvre.description_en;
 
@@ -116,6 +121,13 @@ export default async function OeuvrePage({
             </div>
           </div>
         </div>
+
+        <OeuvresCarousel
+          oeuvres={autresOeuvres}
+          lang={lang}
+          showPrice
+          title={lang === "fr" ? "Autres œuvres disponibles" : "More available works"}
+        />
       </div>
     </div>
   );

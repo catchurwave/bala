@@ -59,7 +59,7 @@ export default async function BoutiquePage({
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {oeuvres.map((oeuvre) => {
               const titre = lang === "fr" ? oeuvre.titre : oeuvre.titre_en;
 
@@ -67,16 +67,16 @@ export default async function BoutiquePage({
                 <Link
                   key={oeuvre.slug}
                   href={`/${lang}/boutique/${oeuvre.slug}`}
-                  className="group painting-card block"
+                  className="group painting-card block bg-[#FDFAF5] shadow-[0_4px_24px_rgba(44,42,39,0.09)] p-4 hover:shadow-[0_12px_40px_rgba(44,42,39,0.15)]"
                 >
                   <div className="frame">
-                    <div className="relative aspect-[4/3] overflow-hidden bg-[#EDE5D4]">
+                    <div className="relative aspect-[4/3] overflow-hidden bg-[#F7F2E8]">
                       {oeuvre.image ? (
                         <Image
                           src={oeuvre.image}
                           alt={titre}
                           fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          className="object-contain group-hover:scale-105 transition-transform duration-500"
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                       ) : (
@@ -87,14 +87,12 @@ export default async function BoutiquePage({
                         </div>
                       )}
                       {/* Status dot */}
-                      {(
-                        <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5">
-                          <span className={`w-2.5 h-2.5 rounded-full ring-2 ring-white/80 ${oeuvre.disponible ? "bg-[#4A6741]" : "bg-red-500"}`} />
-                          <span className="text-[10px] uppercase tracking-wider text-white/90 font-medium drop-shadow">
-                            {oeuvre.disponible ? (lang === "fr" ? "En vente" : "For sale") : (lang === "fr" ? "Vendu" : "Sold")}
-                          </span>
-                        </div>
-                      )}
+                      <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5">
+                        <span className={`w-2.5 h-2.5 rounded-full ring-2 ring-white/80 ${oeuvre.disponible ? "bg-[#4A6741]" : "bg-red-500"}`} />
+                        <span className="text-[10px] uppercase tracking-wider text-white/90 font-medium drop-shadow">
+                          {oeuvre.disponible ? (lang === "fr" ? "En vente" : "For sale") : (lang === "fr" ? "Vendu" : "Sold")}
+                        </span>
+                      </div>
                       {!oeuvre.disponible && (
                         <div className="absolute inset-0 bg-[#2C2A27]/40 flex items-center justify-center">
                           <span className="font-serif text-xl italic text-[#F7F2E8]">{dict.shop.sold}</span>
@@ -103,7 +101,7 @@ export default async function BoutiquePage({
                     </div>
                   </div>
 
-                  <div className="mt-4 px-1">
+                  <div className="mt-4 px-1 pb-1">
                     <h3 className="font-serif text-xl text-[#2C2A27] group-hover:text-[#C8A96E] transition-colors">
                       {titre}
                     </h3>

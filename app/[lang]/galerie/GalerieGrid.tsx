@@ -39,21 +39,21 @@ export default function GalerieGrid({ oeuvres, lang }: { oeuvres: OeuvreRow[]; l
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {filtered.map((o) => {
             const titre = lang === "fr" ? o.titre : o.titre_en;
             const description = lang === "fr" ? o.description : o.description_en;
 
             return (
-              <div key={o.slug} className="group painting-card">
+              <div key={o.slug} className="group painting-card bg-[#FDFAF5] shadow-[0_4px_24px_rgba(44,42,39,0.09)] p-4 hover:shadow-[0_12px_40px_rgba(44,42,39,0.15)]">
                 <div className="frame">
-                  <div className="relative aspect-[4/3] overflow-hidden bg-[#EDE5D4]">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-[#F7F2E8]">
                     {o.image ? (
                       <Image
                         src={o.image}
                         alt={titre}
                         fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="object-contain group-hover:scale-105 transition-transform duration-500"
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
                     ) : (
@@ -95,7 +95,7 @@ export default function GalerieGrid({ oeuvres, lang }: { oeuvres: OeuvreRow[]; l
                     </div>
                   </div>
                 </div>
-                <Link href={`/${lang}/galerie/${o.slug}`} className="mt-4 px-1 block">
+                <Link href={`/${lang}/galerie/${o.slug}`} className="mt-4 px-1 pb-1 block">
                   <h3 className="font-serif text-xl text-[#2C2A27] group-hover:text-[#C8A96E] transition-colors">{titre}</h3>
                   <p className="text-sm text-[#6B6560] mt-1">{o.technique} · {o.annee}</p>
                   <p className="text-xs text-[#A09888] mt-0.5">{o.dimensions}</p>
