@@ -19,10 +19,12 @@ export default function Navigation({
   lang,
   dict,
   artistName = "L'atelier de Bala",
+  isAdmin = false,
 }: {
   lang: string;
   dict: Dict;
   artistName?: string;
+  isAdmin?: boolean;
 }) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
@@ -53,7 +55,9 @@ export default function Navigation({
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed left-0 right-0 z-50 transition-all duration-300 ${
+        isAdmin ? "top-9" : "top-0"
+      } ${
         scrolled
           ? "bg-[#F7F2E8]/95 backdrop-blur-sm shadow-sm border-b border-[#EDE5D4]"
           : "bg-transparent"

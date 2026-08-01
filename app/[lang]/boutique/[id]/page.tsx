@@ -1,6 +1,8 @@
 import { getDictionary, hasLocale } from "@/lib/dictionaries";
 import { dbGetOeuvre, dbGetAVendre } from "@/lib/db";
+import { getAdminSession } from "@/lib/auth";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import BuyButton from "./BuyButton";
 import ImageLightbox from "@/components/ImageLightbox";
 import SizeVisualizer from "@/components/SizeVisualizer";
@@ -16,10 +18,11 @@ export default async function OeuvrePage({
   const { lang, id } = await params;
   if (!hasLocale(lang)) notFound();
 
-  const [oeuvre, aVendre, dict] = await Promise.all([
+  const [oeuvre, aVendre, dict, isAdmin] = await Promise.all([
     dbGetOeuvre(id),
     dbGetAVendre(),
     getDictionary(lang),
+    getAdminSession().catch(() => false),
   ]);
   if (!oeuvre || oeuvre.prix == null) notFound();
 
@@ -30,6 +33,16 @@ export default async function OeuvrePage({
   return (
     <div className="pt-32 pb-24">
       <div className="max-w-6xl mx-auto px-6">
+        {isAdmin && (
+          <div className="flex justify-end mb-6">
+            <Link
+              href={`/admin/oeuvres/${id}`}
+              className="inline-flex items-center gap-2 text-xs tracking-widest uppercase bg-[#C8A96E] text-[#1A1917] px-4 py-2 hover:bg-[#E0C97A] transition-colors"
+            >
+              ✏ Modifier ce tableau
+            </Link>
+          </div>
+        )}
         <div className="grid md:grid-cols-2 gap-16 items-start">
           {/* Image */}
           <div className="flex flex-col gap-4">

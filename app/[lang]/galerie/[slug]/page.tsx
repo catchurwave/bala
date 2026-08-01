@@ -1,5 +1,6 @@
 import { hasLocale } from "@/lib/dictionaries";
 import { dbGetOeuvre, dbGetAllOeuvres } from "@/lib/db";
+import { getAdminSession } from "@/lib/auth";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import ImageLightbox from "@/components/ImageLightbox";
@@ -16,9 +17,10 @@ export default async function OeuvreGaleriePage({
   const { lang, slug } = await params;
   if (!hasLocale(lang)) notFound();
 
-  const [oeuvre, allOeuvres] = await Promise.all([
+  const [oeuvre, allOeuvres, isAdmin] = await Promise.all([
     dbGetOeuvre(slug),
     dbGetAllOeuvres(),
+    getAdminSession().catch(() => false),
   ]);
   if (!oeuvre) notFound();
 
@@ -30,13 +32,23 @@ export default async function OeuvreGaleriePage({
   return (
     <div className="pt-32 pb-24">
       <div className="max-w-6xl mx-auto px-6">
-        {/* Back */}
-        <Link
-          href={`/${lang}/galerie`}
-          className="inline-flex items-center gap-2 text-xs tracking-widest uppercase text-[#A09888] hover:text-[#C8A96E] transition-colors mb-12"
-        >
-          ← {lang === "fr" ? "Retour à la galerie" : "Back to gallery"}
-        </Link>
+        {/* Back + admin edit */}
+        <div className="flex items-center justify-between mb-12">
+          <Link
+            href={`/${lang}/galerie`}
+            className="inline-flex items-center gap-2 text-xs tracking-widest uppercase text-[#A09888] hover:text-[#C8A96E] transition-colors"
+          >
+            ← {lang === "fr" ? "Retour à la galerie" : "Back to gallery"}
+          </Link>
+          {isAdmin && (
+            <Link
+              href={`/admin/oeuvres/${slug}`}
+              className="inline-flex items-center gap-2 text-xs tracking-widest uppercase bg-[#C8A96E] text-[#1A1917] px-4 py-2 hover:bg-[#E0C97A] transition-colors"
+            >
+              ✏ Modifier
+            </Link>
+          )}
+        </div>
 
         <div className="grid md:grid-cols-2 gap-16 items-start">
           {/* Image */}

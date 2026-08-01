@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
 import { getDictionary, hasLocale } from "@/lib/dictionaries";
 import { dbGetBio } from "@/lib/db";
+import { getAdminSession } from "@/lib/auth";
 import Navigation from "@/components/Navigation";
+import AdminBar from "@/components/AdminBar";
 import Footer from "@/components/Footer";
 import CookieBanner from "@/components/CookieBanner";
 import OeuvreModal from "@/components/OeuvreModal";
@@ -33,14 +35,16 @@ export default async function LangLayout({
 
   if (!hasLocale(lang)) notFound();
 
-  const [dict, bio] = await Promise.all([
+  const [dict, bio, isAdmin] = await Promise.all([
     getDictionary(lang),
     dbGetBio().catch((): Record<string, string> => ({})),
+    getAdminSession().catch(() => false),
   ]);
 
   return (
     <ModalProvider>
-      <Navigation lang={lang} dict={dict} artistName={bio.nom_atelier || bio.nom_complet || "Atelier"} />
+      {isAdmin && <AdminBar />}
+      <Navigation lang={lang} dict={dict} artistName={bio.nom_atelier || bio.nom_complet || "Atelier"} isAdmin={isAdmin} />
       <main className="flex-1">{children}</main>
       <Footer lang={lang} dict={dict} bio={bio} />
       <OeuvreModal lang={lang} />

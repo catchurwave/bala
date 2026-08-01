@@ -1,11 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
 function LoginForm() {
-  const router = useRouter();
   const params = useSearchParams();
   const from = params.get("from") ?? "/admin";
 
@@ -25,8 +24,7 @@ function LoginForm() {
     });
 
     if (res.ok) {
-      router.push(from);
-      router.refresh();
+      window.location.assign(from);
     } else {
       const data = await res.json();
       setError(data.error ?? "Erreur");
