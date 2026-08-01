@@ -111,7 +111,7 @@ export default async function OeuvreGaleriePage({
                   </span>
                 </div>
                 {oeuvre.disponible && (
-                  <Link href={`/${lang}/boutique/${oeuvre.slug}`} className="btn-primary block text-center">
+                  <Link href={`/${lang}/checkout?slug=${oeuvre.slug}`} className="btn-primary block text-center">
                     {lang === "fr" ? "Acquérir cette œuvre" : "Acquire this work"} →
                   </Link>
                 )}
