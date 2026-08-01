@@ -2,7 +2,7 @@ import { hasLocale } from "@/lib/dictionaries";
 import { dbGetOeuvre } from "@/lib/db";
 import { notFound, redirect } from "next/navigation";
 import Image from "next/image";
-import CheckoutEmbed from "./CheckoutEmbed";
+import PaymentSelector from "./PaymentSelector";
 
 export const dynamic = "force-dynamic";
 
@@ -69,13 +69,18 @@ export default async function CheckoutPage({
             </ul>
           </div>
 
-          {/* Stripe embedded checkout */}
+          {/* Payment options */}
           <div>
-            <CheckoutEmbed
+            <PaymentSelector
               slug={oeuvre.slug}
               titre={titre}
               prix={oeuvre.prix!}
               lang={lang}
+              iban={process.env.BANK_IBAN ?? "— À configurer dans les variables d'environnement —"}
+              bic={process.env.BANK_BIC ?? "—"}
+              titulaire={process.env.BANK_TITULAIRE ?? "—"}
+              chequeLibelle={process.env.CHEQUE_LIBELLE ?? "—"}
+              chequeAdresse={process.env.CHEQUE_ADRESSE ?? "—"}
             />
           </div>
         </div>
