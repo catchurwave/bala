@@ -67,6 +67,7 @@ export default function OeuvreForm({
     prix: initial?.prix ?? "",
   });
   const [error, setError] = useState("");
+  const [saved, setSaved] = useState(false);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -125,8 +126,14 @@ export default function OeuvreForm({
       return;
     }
 
-    router.push("/admin/oeuvres");
-    router.refresh();
+    if (mode === "create") {
+      router.push(`/admin/oeuvres/${form.slug}`);
+    } else {
+      setSaved(true);
+      setSaving(false);
+      router.refresh();
+      setTimeout(() => setSaved(false), 3000);
+    }
   }
 
   async function handleDelete() {
@@ -145,6 +152,11 @@ export default function OeuvreForm({
 
   return (
     <form onSubmit={handleSubmit} className="max-w-3xl space-y-8">
+      {saved && (
+        <div className="bg-green-900/20 border border-green-700 text-green-300 px-4 py-3 text-sm flex items-center gap-2">
+          ✓ Modifications enregistrées
+        </div>
+      )}
       {error && (
         <div className="bg-red-900/20 border border-red-800 text-red-300 px-4 py-3 text-sm">
           {error}
