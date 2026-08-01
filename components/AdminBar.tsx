@@ -34,12 +34,12 @@ export default function AdminBar({ currentSlug }: { currentSlug?: string }) {
           </Link>
         </>
       )}
-      <Link
+      <a
         href="/api/admin/logout"
         className="text-[#6B6560] hover:text-red-400 transition-colors ml-auto text-[11px]"
       >
         Déconnexion
-      </Link>
+      </a>
     </div>
   );
 }
