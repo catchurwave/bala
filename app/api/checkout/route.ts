@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const session = await (stripe.checkout.sessions.create as any)({
         ...common,
-        ui_mode: "embedded",
+        ui_mode: "embedded_page",
         return_url: `${baseUrl}/${lang}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       });
       return NextResponse.json({ clientSecret: session.client_secret });
