@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import CookieBanner from "@/components/CookieBanner";
 import OeuvreModal from "@/components/OeuvreModal";
 import { ModalProvider } from "@/components/ModalContext";
+import ScrollToTop from "@/components/ScrollToTop";
 
 export async function generateMetadata({
   params,
@@ -43,6 +44,7 @@ export default async function LangLayout({
 
   return (
     <ModalProvider>
+      <ScrollToTop />
       {isAdmin && <AdminBar />}
       <Navigation lang={lang} dict={dict} artistName={bio.nom_atelier || bio.nom_complet || "Atelier"} isAdmin={isAdmin} />
       <main className="flex-1">{children}</main>
